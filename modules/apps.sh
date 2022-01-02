@@ -17,7 +17,7 @@ if [ "$1" = macos ]; then
     defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
   fi
 
-  link_file "$DOTFILES/link/.iterm2"
+  link_file "$DOTFILES/modules/apps/.iterm2"
 
   if ! brew list --cask divvy >/dev/null; then
     brew install divy

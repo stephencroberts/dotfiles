@@ -4,4 +4,4 @@ elif [ "$1" = ubuntu ]; then
   sudo apt-get -qq install tmux
 fi
 
-link_file "$DOTFILES/link/.tmux.conf"
+link_file "$DOTFILES/modules/tmux/.tmux.conf"

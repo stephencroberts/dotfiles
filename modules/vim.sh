@@ -6,7 +6,7 @@ elif [ "$1" = alpine ]; then
   apk add vim
 fi
 
-link_file "$DOTFILES/link/.vimrc"
+link_file "$DOTFILES/modules/vim/.vimrc"
 
 # Install vim-plug if needed
 [ -e ~/.vim/autoload/plug.vim ] || curl --fail --silent --show-error --location\

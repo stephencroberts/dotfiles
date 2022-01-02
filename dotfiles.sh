@@ -39,6 +39,33 @@ log_success()  { printf -- ' \033[1;32m✔\033[0m  %b\n' "$@"; }
 log_error()    { printf -- ' \033[1;31m✖\033[0m  %b\n' "$@" >&2; }
 log_arrow()    { printf -- ' \033[1;34m➜\033[0m  %b\n' "$@"; }
 
+#######################################
+# Symlinks a file                     #
+#                                     #
+# Note: this is used by the modules   #
+#                                     #
+# Arguments:                          #
+#   - source                          #
+#   - destination (defaults to $HOME) #
+#######################################
+link_file() {
+  base=$(basename "$1")
+  dst="${2:-$HOME/$base}"
+
+  if [ -e "$dst" ]; then
+    if [ "$1" -ef "$dst" ]; then
+      log_error "Skipping ~${dst#$HOME}, same file."
+      return 0
+    fi
+
+    log_arrow "Backing up ~${dst#$HOME}."
+    backup_file "$dst"
+  fi
+
+  log_success "Linking ~${dst#$HOME}"
+  ln -sf "$1" "$dst"
+}
+
 #######################
 # Gets the current OS #
 #                     #
@@ -278,31 +305,6 @@ backup_file() {
   # Create backup dir if it doesn't already exist.
   [ -e "$BACKUPS" ] || mkdir -p "$BACKUPS"
   mv "$1" "$BACKUPS"
-}
-
-#######################################
-# Symlinks a file                     #
-#                                     #
-# Arguments:                          #
-#   - source                          #
-#   - destination (defaults to $HOME) #
-#######################################
-link_file() {
-  base=$(basename "$1")
-  dst="${2:-$HOME/$base}"
-
-  if [ -e "$dst" ]; then
-    if [ "$1" -ef "$dst" ]; then
-      log_error "Skipping ~${dst#$HOME}, same file."
-      return 0
-    fi
-
-    log_arrow "Backing up ~${dst#$HOME}."
-    backup_file "$dst"
-  fi
-
-  log_success "Linking ~${dst#$HOME}"
-  ln -sf "$1" "$dst"
 }
 
 #########################################

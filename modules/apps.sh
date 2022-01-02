@@ -8,6 +8,8 @@ if [ "$1" = macos ]; then
   mas list | grep "Evernote" >/dev/null|| mas install 406056744 # Evernote
   mas list | grep "Slack" >/dev/null|| mas install 803453959 # Slack
 
+  brew list --cask docker >/dev/null || brew install --cask docker
+
   if ! brew list --cask iterm2 >/dev/null; then
     brew install iterm2
 

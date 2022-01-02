@@ -1,42 +1,49 @@
 #!/usr/bin/env sh
-#
-# My dotfiles install script
-#
-# ༼ つ ◕_◕ ༽つMUST. HAVE. DOTFILES.༼ つ ◕_◕ ༽つ
-#
-# Author: Stephen Roberts <stephenroberts@gmail.com>
-#
-# Usage: dotfiles [--help|-h]
-#
-#   See the README for documentation.
-#   https://github.com/stephencroberts/dotfiles
-#
-#   Copyright (c) 2015 Stephen Roberts
-#   Licensed under the MIT license.g
+#####################################################################
+# Dotfiles install script                                           #
+#                                                                   #
+# ༼ つ ◕_◕ ༽つMUST. HAVE. DOTFILES.༼ つ ◕_◕ ༽つ                     #
+#                                                                   #
+# Author: Stephen Roberts <stephenroberts@gmail.com>                #
+#                                                                   #
+# Usage: dotfiles [--help|-h]                                       #
+#                                                                   #
+#   See the README for documentation.                               #
+#   https://github.com/stephencroberts/dotfiles                     #
+#                                                                   #
+#   Copyright (c) 2022 Stephen Roberts                              #
+#   Licensed under the MIT license                                  #
+#####################################################################
 
 : "${REPO:=git://github.com/stephencroberts/dotfiles.git}"
 : "${DOTFILES:=$HOME/.dotfiles}"
 : "${CACHE_FILE:=$DOTFILES/.selected}"
 : "${BACKUPS:=$DOTFILES/backups/$(date +%s)}"
 
-# Prints usage to the screen, scraped from the documentation in the script
-# header
+############################################################################
+# Prints usage to the screen, scraped from the documentation in the script #
+# header                                                                   #
+############################################################################
 usage() {
-  sed -n "/^# Usage/,/^[^#]/p" "$0" | sed 's/^# \{0,1\}//g' | sed '$d'
+  sed -n '3,/###/p' "$0" \
+    | sed 's/# \(.*\) *#$/\1/' \
+    | sed '$d'
 }
 
-#
-# Logging
-#
+###########
+# Logging #
+###########
 
 log_header()   { printf -- '\n\033[1m%b\033[0m\n' "$@"; }
 log_success()  { printf -- ' \033[1;32m✔\033[0m  %b\n' "$@"; }
 log_error()    { printf -- ' \033[1;31m✖\033[0m  %b\n' "$@" >&2; }
 log_arrow()    { printf -- ' \033[1;34m➜\033[0m  %b\n' "$@"; }
 
-# Gets the current OS
-#
-# Returns: the OS
+#######################
+# Gets the current OS #
+#                     #
+# Returns: the OS     #
+#######################
 get_os() {
   if [ "$(uname)" = Darwin ]; then
     echo macos
@@ -50,10 +57,12 @@ get_os() {
   fi
 }
 
-# Installs git in the target OS
-#
-# Arguments:
-#   - os name
+#################################
+# Installs git in the target OS #
+#                               #
+# Arguments:                    #
+#   - os name                   #
+#################################
 install_git() {
   type -p git >/dev/null 2>&1 && git --version >/dev/null || {
     log_header "Installing git"
@@ -64,28 +73,36 @@ install_git() {
   type -p git >/dev/null 2>&1 && git --version >/dev/null
 }
 
-# git is already installed on MacOS
+##################################################################################
+# Install git for macOS                                                          #
+#                                                                                #
+# The first time `git` is used, macOS prompts to install it, so let's wait until #
+# the user says it's finished.                                                   #
+##################################################################################
 install_git_macos() {
   printf -- "Waiting for git to be installed. Press ENTER to continue."
   read -r
 }
 
-# Installs git for ubuntu
+###########################
+# Installs git for ubuntu #
+###########################
 install_git_ubuntu() {
   sudo apt-get -qq install git-core
 }
 
+###############################
+# Instal git for alpine linux #
+###############################
 install_git_alpine() {
   apk add --update git
 }
 
-#
-# Dotfiles administrative things
-#
-
-# Download or update dotfiles
-#
-# Returns: code 1 if dotfiles were updated
+############################################
+# Download or update dotfiles              #
+#                                          #
+# Returns: code 1 if dotfiles were updated #
+############################################
 fetch_dotfiles() {
   if [ ! -d "$DOTFILES" ]; then
     log_header "Downloading dotfiles"
@@ -99,30 +116,38 @@ fetch_dotfiles() {
   fi
 }
 
-# Features menu
+##################################################
+# ==================== MENU ==================== #
+##################################################
 
-# Prints an option as selected
-#
-# Arguments:
-#   - option
+################################
+# Prints an option as selected #
+#                              #
+# Arguments:                   #
+#   - option                   #
+################################
 prompt_print_selected() {
   printf -- ' \033[1;32m✔\033[0m  %b\n' "$@"
 }
 
-# Prints an option as deselected
-#
-# Arguments:
-#   - option
+##################################
+# Prints an option as deselected #
+#                                #
+# Arguments:                     #
+#   - option                     #
+##################################
 prompt_print_deselected() {
   printf -- ' \033[1;31m✖\033[0m  %b\n' "$@"
 }
 
-# Prints a menu with selected/deselected options
-#
-# Arguments:
-#   - heading
-#   - all options
-#   - selected options
+##################################################
+# Prints a menu with selected/deselected options #
+#                                                #
+# Arguments:                                     #
+#   - heading                                    #
+#   - all options                                #
+#   - selected options                           #
+##################################################
 prompt_print_menu() {
   log_header "$1"
 
@@ -137,13 +162,15 @@ prompt_print_menu() {
   done
 }
 
-# Gets an item by index (1-indexed) from a space-delimited list
-#
-# Arguments:
-#   - list
-#   - index
-#
-# Returns: the item at index
+#################################################################
+# Gets an item by index (1-indexed) from a space-delimited list #
+#                                                               #
+# Arguments:                                                    #
+#   - list                                                      #
+#   - index                                                     #
+#                                                               #
+# Returns: the item at index                                    #
+#################################################################
 get_item_at_index() {
   i=1
   for item in $1; do
@@ -155,19 +182,21 @@ get_item_at_index() {
   done
 }
 
-# Prompts the user for selections from a menu
-#
-# This function is recursive, printing the current menu as the user updates
-# selections until the user no longer makes new selections. The list of selected
-# options is returned in a named variable.
-#
-# Arguments:
-#   - heading
-#   - all menu options
-#   - selected menu options
-#   - wait time (s) for the user to interact with the menu (optional)
-#
-# Returns: the selected menu options in the variable `prompt_selections`
+#############################################################################
+# Prompts the user for selections from a menu                               #
+#                                                                           #
+# This function is recursive, printing the current menu as the user updates #
+# selections until the user no longer makes new selections. The list of     #
+# selected options is returned in a named variable.                         #
+#                                                                           #
+# Arguments:                                                                #
+#   - heading                                                               #
+#   - all menu options                                                      #
+#   - selected menu options                                                 #
+#   - wait time (s) for the user to interact with the menu (optional)       #
+#                                                                           #
+# Returns: the selected menu options in the variable `prompt_selections`    #
+#############################################################################
 prompt_menu() {
   heading=$1
   options=$2
@@ -213,10 +242,12 @@ prompt_menu() {
   export prompt_selections=$selected
 }
 
-# Executes install scripts as selected by the user
-#
-# Arguments:
-#   - operating system
+####################################################
+# Executes install scripts as selected by the user #
+#                                                  #
+# Arguments:                                       #
+#   - operating system                             #
+####################################################
 install_things() {
   menu_options=$(find "$DOTFILES/modules" -maxdepth 1 -not -type d \
     -exec basename {} \; | xargs)
@@ -237,18 +268,25 @@ install_things() {
   done
 }
 
-# Backs up a file to the backups folder
+#########################################
+# Backs up a file to the backups folder #
+#                                       #
+# Arguments:                            #
+#   - file                              #
+#########################################
 backup_file() {
   # Create backup dir if it doesn't already exist.
   [ -e "$BACKUPS" ] || mkdir -p "$BACKUPS"
   mv "$1" "$BACKUPS"
 }
 
-# Symlinks a file
-#
-# Arguments:
-#   - source
-#   - destination (defaults to $HOME)
+#######################################
+# Symlinks a file                     #
+#                                     #
+# Arguments:                          #
+#   - source                          #
+#   - destination (defaults to $HOME) #
+#######################################
 link_file() {
   base=$(basename "$1")
   dst="${2:-$HOME/$base}"
@@ -267,7 +305,9 @@ link_file() {
   ln -sf "$1" "$dst"
 }
 
-# Sets up everything required for MacOS
+#########################################
+# Sets up everything required for MacOS #
+#########################################
 init_macos() {
   # Install Homebrew.
   if ! type -p brew >/dev/null; then
@@ -305,16 +345,12 @@ init_alpine() {
   apk add curl
 }
 
-# Enough with the functions, let's do stuff.
+##############################################
+# Enough with the functions, let's do stuff. #
+##############################################
 main() {
 
   set -e
-
-  echo
-  echo 'Dotfiles Install Script - Stephen Roberts'
-  echo
-  echo '༼ つ ◕_◕ ༽つMUST. HAVE. DOTFILES.༼ つ ◕_◕ ༽つ'
-  echo
 
   # Show help/usage
   if [ "$1" = -h ] || [ "$1" = "--help" ]; then

@@ -244,26 +244,27 @@ backup_file() {
   mv "$1" "$BACKUPS"
 }
 
-# Symlinks a file to HOME directory
+# Symlinks a file
 #
 # Arguments:
-#   - file
+#   - source
+#   - destination (defaults to $HOME)
 link_file() {
   base=$(basename "$1")
-  dst="$HOME/$base"
+  dst="${2:-$HOME/$base}"
 
   if [ -e "$dst" ]; then
     if [ "$1" -ef "$dst" ]; then
-      log_error "Skipping ~/$base, same file."
+      log_error "Skipping ~${dst#$HOME}, same file."
       return 0
     fi
 
-    log_arrow "Backing up ~/$base."
+    log_arrow "Backing up ~${dst#$HOME}."
     backup_file "$dst"
   fi
 
-  log_success "Linking ~/$base."
-  ln -sf "${1#$HOME/}" ~/
+  log_success "Linking ~${dst#$HOME}"
+  ln -sf "$1" "$dst"
 }
 
 # Sets up everything required for MacOS

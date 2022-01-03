@@ -10,7 +10,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
-Plug 'skwp/vim-colors-solarized'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -29,8 +28,13 @@ syntax enable
 set background=dark
 
 " vim-airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.colnr = ' ㏇:'
+let g:airline_symbols.colnr = ' ℅:'
+let g:airline_symbols.maxlinenr = ''
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='papercolor'
 
 set statusline+=%#warningmsg#

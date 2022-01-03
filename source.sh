@@ -1,50 +1,20 @@
-#!/bin/sh
-
 ## dotfiles
 
 export DOTFILES="$HOME/.dotfiles"
 export PATH="$DOTFILES/bin:$PATH"
 
-## asdf
-
-type -p asdf >/dev/null && . $(brew --prefix asdf)/asdf.sh
-
-## fzf
-
-# Use ag for fzf
-type -p ag >/dev/null && type -p fzf >/dev/null \
-  && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-
-## git
-
-alias g='git'
-function ga() { git add "${@:-.}"; } # Add all files by default
-alias gp='git push'
-alias gpa='gp --all'
-alias gu='git pull'
-alias gl='git log'
-alias gg='gl --decorate --oneline --graph --date-order --all'
-alias gs='git status'
-alias gst='gs'
-alias gd='git diff'
-alias gdc='gd --cached'
-alias gm='git commit -m'
-alias gma='git commit -am'
-alias gb='git branch'
-alias gba='git branch -a'
-function gc() { git checkout "${@:-master}"; } # Checkout master by default
-alias gco='gc'
-alias gcb='gc -b'
-alias gr='git remote'
-alias grv='gr -v'
-alias gra='git remote add'
-alias grr='git remote rm'
-alias gcl='git clone'
-alias gcd='git rev-parse 2>/dev/null && cd "./$(git rev-parse --show-cdup)"'
+# Source each installed module
+for module in $(cat "$DOTFILES/.selected"); do
+  source_file="$DOTFILES/modules/${module%.sh}/source.sh"
+  if [ -f "$source_file" ]; then
+    . "$source_file"
+  fi
+done
 
 ## grep
 
 export GREP_OPTIONS='--color=auto'
+
 ## Filesystem
 
 # Files will be created with these permissions:
@@ -71,7 +41,3 @@ alias r="fc -e -"
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
-
-# Start ScreenSaver. This will lock the screen if locking is enabled.
-alias ss="/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/Sc"\
-"reenSaverEngine"

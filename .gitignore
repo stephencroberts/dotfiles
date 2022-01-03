@@ -5,3 +5,5 @@
 /backups/
 
 Brewfile
+*.zip
+/modules/fonts/*/

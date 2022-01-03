@@ -1,3 +1,9 @@
+if [ "$1" = macos ]; then
+  brew list zsh >/dev/null || brew install zsh
+elif [ "$1" = alpine ]; then
+  apk add zsh
+fi
+
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then
   git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 

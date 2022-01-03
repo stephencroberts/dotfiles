@@ -276,7 +276,7 @@ prompt_menu() {
 #   - operating system                             #
 ####################################################
 install_things() {
-  menu_options=$(find "$DOTFILES/modules" -maxdepth 1 -not -type d \
+  menu_options=$(find "$DOTFILES/modules" -maxdepth 1 -mindepth 1 -type d \
     -exec basename {} \; | xargs)
 
   if [ -f "$CACHE_FILE" ]; then
@@ -290,8 +290,8 @@ install_things() {
   echo "$prompt_selections" >"$CACHE_FILE"
 
   for option in $prompt_selections; do
-    log_header "Installing ${option%.sh}"
-    . "$DOTFILES/modules/$option" "$1" "$2"
+    log_header "Installing $option"
+    . "$DOTFILES/modules/$option/install.sh" "$1" "$2"
   done
 }
 

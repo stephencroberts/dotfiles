@@ -1,6 +1,9 @@
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'dense-analysis/ale'
+Plug 'edkolev/tmuxline.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -24,14 +27,14 @@ let mapleader=','
 " vim-colors-solarized
 syntax enable
 set background=dark
-colorscheme solarized
 
-" lightline
-set laststatus=2
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ }
+" vim-airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='papercolor'
+
+set statusline+=%#warningmsg#
+set statusline+=%*
 
 " ack.vim
 if executable('ag')
@@ -75,6 +78,7 @@ set ttymouse=xterm2     " set mouse codes for iterm2
 set textwidth=80        " limit text to 80 chars
 set colorcolumn=+1      " highlight textwidth column
 highlight ColorColumn ctermbg=236   " Highlight color
+set term=screen-256color
 set expandtab           " expand tabs to spaces
 set shiftwidth=2        " the # of spaces for indenting
 set tabstop=2           " tabs indent only 2 spaces
@@ -89,6 +93,7 @@ set hlsearch            " highlight search matches
 set hidden              " allow buffers to be hidden and not abandoned
 set splitbelow          " new split goes below
 set splitright          " new split goes right
+set laststatus=2        " always display the status line
 let g:netrw_banner=0    " remove banner
 let g:netrw_liststyle=3 " tree view
 

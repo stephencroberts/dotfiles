@@ -5,3 +5,4 @@ elif [ "$1" = ubuntu ]; then
 fi
 
 link_file "$DOTFILES/modules/tmux/.tmux.conf"
+link_file "$DOTFILES/modules/tmux/.tmuxline.conf"

@@ -11,6 +11,10 @@ for module in $(cat "$DOTFILES/.selected"); do
   fi
 done
 
+## Homebrew
+
+[ -e /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 ## grep
 
 export GREP_OPTIONS='--color=auto'

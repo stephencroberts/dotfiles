@@ -3,4 +3,8 @@ type asdf >/dev/null || {
   return 0
 }
 
-# TODO: install node
+asdf plugin list | grep nodejs >/dev/null \
+  || asdf plugin-add \
+     nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf install nodejs latest
+asdf global nodejs latest

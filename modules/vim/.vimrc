@@ -1,17 +1,19 @@
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'yuezk/vim-js'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 let mapleader=','
@@ -24,6 +26,7 @@ let mapleader=','
 " vim-colors-solarized
 syntax enable
 set background=dark
+colorscheme solarized
 
 " vim-airline
 if !exists('g:airline_symbols')
@@ -77,7 +80,8 @@ set ttymouse=xterm2     " set mouse codes for iterm2
 set textwidth=80        " limit text to 80 chars
 set colorcolumn=+1      " highlight textwidth column
 highlight ColorColumn ctermbg=236   " Highlight color
-set term=screen-256color
+highlight clear SignColumn
+set term=xterm-256color
 set expandtab           " expand tabs to spaces
 set shiftwidth=2        " the # of spaces for indenting
 set tabstop=2           " tabs indent only 2 spaces

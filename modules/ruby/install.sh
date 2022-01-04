@@ -1,6 +1,6 @@
-if [ "$1" = macos ]; then
-  log_header "Installing asdf"
-  . "$DOTFILES/init/asdf.sh"
-fi
+type asdf >/dev/null || {
+  log_error "Please install the asdf module!"
+  return 0
+}
 
 # TODO: install ruby

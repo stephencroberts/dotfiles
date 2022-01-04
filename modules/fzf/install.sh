@@ -4,5 +4,5 @@ if [ "$1" = macos ]; then
     "$(brew --prefix)/opt/fzf/install"
   fi
 elif [ "$1" = alpine ]; then
-  type -p fzf >/dev/null || apk add fzf
+  type fzf >/dev/null || apk add fzf
 fi

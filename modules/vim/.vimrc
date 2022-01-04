@@ -38,11 +38,6 @@ let g:airline_theme='papercolor'
 set statusline+=%#warningmsg#
 set statusline+=%*
 
-" ack.vim
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 " nercommenter
 filetype plugin on
 let g:NERDSpaceDelims = 1
@@ -50,8 +45,10 @@ let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 
 " fzf
-nmap <leader>t :FZF<CR>
+let g:fzf_layout = { 'down': '40%' }
+nmap <leader>t :Files<CR>
 nmap <leader>b :Buffers<CR>
+nmap <leader>f :Rg<CR>
 
 " vim-gitgutter
 nmap <leader>g :GitGutterToggle<CR>

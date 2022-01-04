@@ -2,6 +2,8 @@ if [ "$1" = macos ]; then
   brew list zsh >/dev/null || brew install zsh
 elif [ "$1" = alpine ]; then
   apk add zsh
+else
+  log_error "$1 is not supported!"
 fi
 
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then

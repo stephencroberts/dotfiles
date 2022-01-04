@@ -4,6 +4,8 @@ elif [ "$1" = ubuntu ]; then
   sudo apt-get -qq install vim
 elif [ "$1" = alpine ]; then
   apk add vim
+else
+  log_error "$1 is not supported!"
 fi
 
 link_file "$DOTFILES/modules/vim/.vimrc"

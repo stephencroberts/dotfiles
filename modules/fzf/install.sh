@@ -5,4 +5,6 @@ if [ "$1" = macos ]; then
   fi
 elif [ "$1" = alpine ]; then
   type fzf >/dev/null || apk add fzf
+else
+  log_error "$1 is not supported!"
 fi

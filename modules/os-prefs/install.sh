@@ -67,4 +67,6 @@ if [ "$1" = macos ]; then
 
   # Speeds up the trackpad.
   defaults write -g com.apple.trackpad.scaling -float 2
+else
+  log_error "$1 is not supported!"
 fi

@@ -6,7 +6,7 @@
 #                                                                   #
 # Author: Stephen Roberts <stephenroberts@gmail.com>                #
 #                                                                   #
-# Usage: dotfiles [--help|-h]                                       #
+# Usage: dotfiles [--help | -h]                                     #
 #                                                                   #
 #   See the README for documentation.                               #
 #   https://github.com/stephencroberts/dotfiles                     #
@@ -91,13 +91,13 @@ get_os() {
 #   - os name                   #
 #################################
 install_git() {
-  type -p git >/dev/null 2>&1 && git --version >/dev/null || {
+  type git >/dev/null 2>&1 && git --version >/dev/null || {
     log_header "Installing git"
     "install_git_$1"
   }
 
   # Check that git is installed
-  type -p git >/dev/null 2>&1 && git --version >/dev/null
+  type git >/dev/null 2>&1 && git --version >/dev/null
 }
 
 ##################################################################################
@@ -277,7 +277,7 @@ prompt_menu() {
 ####################################################
 install_things() {
   menu_options=$(find "$DOTFILES/modules" -maxdepth 1 -mindepth 1 -type d \
-    -exec basename {} \; | xargs)
+    -exec basename {} \; | sort | xargs)
 
   if [ -f "$CACHE_FILE" ]; then
     menu_selects="$(xargs <"$CACHE_FILE") "
@@ -312,7 +312,7 @@ backup_file() {
 #########################################
 init_macos() {
   # Install Homebrew.
-  if ! type -p brew >/dev/null; then
+  if ! type brew >/dev/null; then
     if [ ! -e /opt/homebrew/bin/brew ]; then
       log_header "Installing Homebrew"
       /bin/bash -c "$(curl --fail --silent --show-error --location \
@@ -323,7 +323,7 @@ init_macos() {
   fi
 
   # Exit if, for some reason, Homebrew is not installed.
-  type -p brew >/dev/null || {
+  type brew >/dev/null || {
     log_error "Homebrew failed to install."
     return 1
   }

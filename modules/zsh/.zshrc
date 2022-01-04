@@ -10,6 +10,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Keep prompt on the same line
+PROMPT='
+${(e)$(prompt_paradox_build_prompt)} '
+
 # Remove user@host from prompt
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   function prompt_paradox_build_prompt {

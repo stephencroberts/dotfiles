@@ -74,10 +74,11 @@ link_file() {
 get_os() {
   if [ "$(uname)" = Darwin ]; then
     echo macos
-  elif grep 'Ubuntu' >/dev/null 2>&1 </etc/issue; then
-    echo ubuntu
   elif [ -e /etc/alpine-release ]; then
     echo alpine
+  elif [ -e /etc/os-release ] && grep debian >/dev/null 2>&1 </etc/os-release
+  then
+    echo debian
   else
     log_error "OS not supported!"
     return 1
@@ -100,6 +101,13 @@ install_git() {
   type git >/dev/null 2>&1 && git --version >/dev/null
 }
 
+###############################
+# Instal git for alpine linux #
+###############################
+install_git_alpine() {
+  apk add --update git
+}
+
 ##################################################################################
 # Install git for macOS                                                          #
 #                                                                                #
@@ -112,18 +120,13 @@ install_git_macos() {
 }
 
 ###########################
-# Installs git for ubuntu #
+# Installs git for debian #
 ###########################
-install_git_ubuntu() {
-  sudo apt-get -qq install git-core
+install_git_debian() {
+  apt-get -qq install git-core
 }
 
-###############################
-# Instal git for alpine linux #
-###############################
-install_git_alpine() {
-  apk add --update git
-}
+
 
 ############################################
 # Download or update dotfiles              #
@@ -337,15 +340,15 @@ init_macos() {
   brew install jq
 }
 
-# Sets up everything required for Ubuntu
-init_ubuntu() {
+# Sets up everything required for Debian
+init_debian() {
   log_header "Updating apt"
-  sudo apt-get -qq update
-  sudo apt-get -qq dist-upgrade
+  apt-get -qq update
+  apt-get -qq dist-upgrade
 
   # I can't survive without jq
   log_header "Installing essentials"
-  sudo apt-get -qq install jq
+  apt-get -qq install jq
 }
 
 init_alpine() {

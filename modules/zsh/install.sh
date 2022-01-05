@@ -4,6 +4,7 @@ elif [ "$1" = alpine ]; then
   type zsh >/dev/null || apk add zsh
 else
   log_error "$1 is not supported!"
+  return 0
 fi
 
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then

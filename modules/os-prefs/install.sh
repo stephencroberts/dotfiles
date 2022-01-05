@@ -69,4 +69,5 @@ if [ "$1" = macos ]; then
   defaults write -g com.apple.trackpad.scaling -float 2
 else
   log_error "$1 is not supported!"
+  return 0
 fi

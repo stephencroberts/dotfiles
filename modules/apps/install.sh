@@ -32,4 +32,5 @@ if [ "$1" = macos ]; then
   fi
 else
   log_error "$1 is not supported!"
+  return 0
 fi

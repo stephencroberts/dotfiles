@@ -60,7 +60,8 @@ elif [ "$1" = alpine ]; then
     apk add python3
   }
 
-  install_linux
+  [ -d /usr/local/google-cloud-sdk ] || install_linux
+
 elif [ "$1" = debian ]; then
   # g00g requires python. Yuck.
   type python >/dev/null || {
@@ -68,5 +69,5 @@ elif [ "$1" = debian ]; then
     apt-get -qq install python
   }
 
-  install_linux
+  [ -d /usr/local/google-cloud-sdk ] || install_linux
 fi

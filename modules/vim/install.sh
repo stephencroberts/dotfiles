@@ -1,11 +1,12 @@
 if [ "$1" = macos ]; then
   brew list vim >/dev/null || brew install vim
-elif [ "$1" = ubuntu ]; then
-  sudo apt-get -qq install vim
+elif [ "$1" = debian ]; then
+  apt-get -qq install vim
 elif [ "$1" = alpine ]; then
   type vim >/dev/null || apk add vim
 else
   log_error "$1 is not supported!"
+  return 0
 fi
 
 link_file "$DOTFILES/modules/vim/.vimrc"

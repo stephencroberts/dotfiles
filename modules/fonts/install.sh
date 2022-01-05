@@ -5,4 +5,5 @@ if [ "$1" = macos ]; then
     || brew install --cask font-fira-code
 else
   log_error "$1 is not supported!"
+  return 0
 fi

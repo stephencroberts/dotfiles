@@ -180,7 +180,7 @@ prompt_print_menu() {
 
   i=1
   for option in $2; do
-    if echo "$3" | grep "$option" >/dev/null; then
+    if echo " $3" | grep " $option " >/dev/null; then
       prompt_print_selected "$i) $option"
     else
       prompt_print_deselected "$i) $option"
@@ -331,6 +331,10 @@ init_macos() {
   log_header "Updating Homebrew"
   brew doctor || true # Brew is exiting non-zero with just warnings...
   brew update
+
+  # I can't survive without jq
+  log_header "Installing essentials"
+  brew install jq
 }
 
 # Sets up everything required for Ubuntu
@@ -338,14 +342,18 @@ init_ubuntu() {
   log_header "Updating apt"
   sudo apt-get -qq update
   sudo apt-get -qq dist-upgrade
+
+  # I can't survive without jq
+  log_header "Installing essentials"
+  sudo apt-get -qq install jq
 }
 
 init_alpine() {
   log_header "Updating apk"
   apk update
 
-  log_header "Installing curl"
-  apk add curl
+  log_header "Installing essentials"
+  apk add curl jq
 }
 
 ##############################################

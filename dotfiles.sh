@@ -53,16 +53,16 @@ link_file() {
   dst="${2:-$HOME/$base}"
 
   if [ -e "$dst" ]; then
-    if [ "$1" -ef "$dst" ]; then
-      log_error "Skipping ~${dst#$HOME}, same file."
+    if [ "$1" = "$(readlink "$dst")" ]; then
+      log_error "Skipping ~${dst#"$HOME"}, same file."
       return 0
     fi
 
-    log_arrow "Backing up ~${dst#$HOME}."
+    log_arrow "Backing up ~${dst#"$HOME"}."
     backup_file "$dst"
   fi
 
-  log_success "Linking ~${dst#$HOME}"
+  log_success "Linking ~${dst#"$HOME"}"
   ln -sf "$1" "$dst"
 }
 
@@ -92,7 +92,7 @@ get_os() {
 #   - os name                   #
 #################################
 install_git() {
-  type git >/dev/null 2>&1 && git --version >/dev/null || {
+  (type git >/dev/null 2>&1 && git --version >/dev/null) || {
     log_header "Installing git"
     "install_git_$1"
   }
@@ -108,12 +108,12 @@ install_git_alpine() {
   apk add --update git
 }
 
-##################################################################################
-# Install git for macOS                                                          #
-#                                                                                #
-# The first time `git` is used, macOS prompts to install it, so let's wait until #
-# the user says it's finished.                                                   #
-##################################################################################
+############################################################################
+# Install git for macOS                                                    #
+#                                                                          #
+# The first time `git` is used, macOS prompts to install it, so let's wait #
+# until the user says it's finished.                                       #
+############################################################################
 install_git_macos() {
   printf -- "Waiting for git to be installed. Press ENTER to continue."
   read -r
@@ -231,24 +231,14 @@ prompt_menu() {
   heading=$1
   options=$2
   selected=$3
-  wait=$4
 
   prompt_print_menu "$heading" "$options" "$selected"
-
-  if [ -n "$wait" ]; then
-    read -rt "$wait" -n 1 \
-      -sp "To edit this list, press any key within $wait seconds." || {
-      # Return final results
-      export prompt_selections=$selected
-      return 0
-    }
-  fi
 
   # Continue asking the user for changes to the selections until they no longer
   # enter input
   printf -- '\r\033[K'
-  if read -rp \
-    "Toggle options (Separate options with spaces, ENTER when done): " nums \
+  if printf "Toggle options (Separate options with spaces, ENTER when done): " \
+    && read -r nums \
     && [ -n "$(echo "$nums" | xargs)" ]; then
 
     for num in $nums; do
@@ -258,7 +248,7 @@ prompt_menu() {
 
       # Select/deselect the option
       if echo "$selected" | grep "$option" >/dev/null; then
-        selected=${selected//$option/}
+        selected=$(echo "$selected" | sed "s/$option//")
       else
         selected="$selected$option "
       fi
@@ -269,7 +259,7 @@ prompt_menu() {
   fi
 
   # Return final results
-  export prompt_selections=$selected
+  export prompt_selections="$selected"
 }
 
 ####################################################
@@ -287,7 +277,7 @@ install_things() {
   fi
 
   prompt_menu 'Suh dude. Wanna install some stuff? ¯\\\_(ツ)\_/¯' \
-    "$menu_options" "$menu_selects" 5
+    "$menu_options" "$menu_selects"
 
   # Write out cache file for future reading.
   echo "$prompt_selections" >"$CACHE_FILE"
@@ -392,10 +382,11 @@ main() {
 
   "init_$os"
   install_things "$os"
+  . "$DOTFILES/source.sh"
 
   # Alert if backups were made.
   if [ -e "$BACKUPS" ]; then
-    printf -- "\\nBackups were moved to ~/%s\\n" "${BACKUPS#$HOME/}"
+    printf -- "\\nBackups were moved to ~/%s\\n" "${BACKUPS#"$HOME"/}"
   fi
 
   # All done!

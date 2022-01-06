@@ -1,31 +1,27 @@
-# asdf must be loaded differently depending on shell. This may be a bit fragile,
-# but quickly checks where asdf is located and which shell to decide what to
-# load.
-
-# asdf doesn't work in bourne shell
-echo "$0" | grep '\(^\|.*\/\)sh$' >/dev/null 2>&1 && return 0
-
 # macos/homebrew
-if type brew >/dev/null 2>&1 && brew --prefix asdf >/dev/null 2>&1; then
+if brew --prefix asdf >/dev/null 2>&1; then
 
   # Load asdf
   . "$(brew --prefix asdf)/asdf.sh"
 
   # Load bash completions if using bash
-  echo "$0" | grep bash >/dev/null 2>&1 \
+  [ -n "$BASH_VERSION" ] \
     && "$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
 
 # Non-homebrew, probably in the HOME directory
 elif [ -e "$HOME/.asdf" ]; then
 
   # Load asdf
-  . "$HOME/.asdf/asdf.sh"
+  if [ -n "$ZSH_VERSION" ] || [ -n "$BASH_VERSION" ]; then
+    . "$HOME/.asdf/asdf.sh"
+  else
+    echo "Shell not supported for asdf!" >&2
+  fi
 
   # Load bash completions if using bash
-  echo "$0" | grep bash >/dev/null 2>&1 && . "$HOME/.asdf/completions/asdf.bash"
+  [ -n "$BASH_VERSION" ] && . "$HOME/.asdf/completions/asdf.bash"
 
 # Did you install asdf correctly??
 else
-  log_error "Failed to find asdf!"
-  return 0
+  echo "Failed to find asdf!" >&2
 fi

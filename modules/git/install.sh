@@ -1,7 +1,9 @@
 if [ "$1" = macos ]; then
-  brew list git >/dev/null || brew install git
+  brew_install git
 elif [ "$1" = alpine ]; then
-  type git >/dev/null || apk add git
+  apk_add git
+elif [ "$1" = debian ]; then
+  apt_install git
 else
   log_error "$1 is not supported!"
   return 0

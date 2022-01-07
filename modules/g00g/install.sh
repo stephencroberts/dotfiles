@@ -45,29 +45,16 @@ install_linux() {
 
 if [ "$1" = macos ]; then
 
-  brew list python >/dev/null || {
-    log_header "Installing python. #thxg00g"
-    brew install python
-  }
-
-  brew list --cask google-cloud-sdk >/dev/null \
-    || brew install --cask google-cloud-sdk
+  brew_install python #thxg00g
+  brew_cask_install google-cloud-sdk
 
 elif [ "$1" = alpine ]; then
-  # g00g requires python. Yuck.
-  type python >/dev/null || {
-    log_header "Installing python. #thxg00g"
-    apk add python3
-  }
+  apk_add python3 #thxg00g
 
   [ -d /usr/local/google-cloud-sdk ] || install_linux
 
 elif [ "$1" = debian ]; then
-  # g00g requires python. Yuck.
-  type python >/dev/null || {
-    log_header "Installing python. #thxg00g"
-    apt-get -qq install python
-  }
+  apt_install python #thxg00g
 
   [ -d /usr/local/google-cloud-sdk ] || install_linux
 fi

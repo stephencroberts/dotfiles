@@ -1,7 +1,9 @@
 if [ "$1" = macos ]; then
-  brew list zsh >/dev/null || brew install zsh
+  brew_install zsh
 elif [ "$1" = alpine ]; then
-  type zsh >/dev/null || apk add zsh
+  apk_add zsh
+elif [ "$1" = debian ]; then
+  apt_install zsh
 else
   log_error "$1 is not supported!"
   return 0

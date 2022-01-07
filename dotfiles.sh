@@ -1,19 +1,25 @@
 #!/usr/bin/env sh
-#####################################################################
-# Dotfiles install script                                           #
-#                                                                   #
-# ༼ つ ◕_◕ ༽つMUST. HAVE. DOTFILES.༼ つ ◕_◕ ༽つ                     #
-#                                                                   #
-# Author: Stephen Roberts <stephenroberts@gmail.com>                #
-#                                                                   #
-# Usage: dotfiles [--help | -h]                                     #
-#                                                                   #
-#   See the README for documentation.                               #
-#   https://github.com/stephencroberts/dotfiles                     #
-#                                                                   #
-#   Copyright (c) 2022 Stephen Roberts                              #
-#   Licensed under the MIT license                                  #
-#####################################################################
+##########################################################################
+# Dotfiles install script                                                #
+#                                                                        #
+# ༼ つ ◕_◕ ༽つMUST. HAVE. DOTFILES.༼ つ ◕_◕ ༽つ                          #
+#                                                                        #
+# Author: Stephen Roberts <stephenroberts@gmail.com>                     #
+#                                                                        #
+# TODO: Add docs                                                         #
+#   - os-detection and git has to be in this file as it's sourced before #
+#     the repo is downloaded                                             #
+#   - libs                                                               #
+#   - install helper                                                     #
+#                                                                        #
+# Usage: dotfiles [--help | -h]                                          #
+#                                                                        #
+#   See the README for documentation.                                    #
+#   https://github.com/stephencroberts/dotfiles                          #
+#                                                                        #
+#   Copyright (c) 2022 Stephen Roberts                                   #
+#   Licensed under the MIT license                                       #
+##########################################################################
 
 : "${REPO:=git://github.com/stephencroberts/dotfiles.git}"
 : "${DOTFILES:=$HOME/.dotfiles}"
@@ -38,33 +44,6 @@ log_header()   { printf -- '\n\033[1m%b\033[0m\n' "$@"; }
 log_success()  { printf -- ' \033[1;32m✔\033[0m  %b\n' "$@"; }
 log_error()    { printf -- ' \033[1;31m✖\033[0m  %b\n' "$@" >&2; }
 log_arrow()    { printf -- ' \033[1;34m➜\033[0m  %b\n' "$@"; }
-
-#######################################
-# Symlinks a file                     #
-#                                     #
-# Note: this is used by the modules   #
-#                                     #
-# Arguments:                          #
-#   - source                          #
-#   - destination (defaults to $HOME) #
-#######################################
-link_file() {
-  base=$(basename "$1")
-  dst="${2:-$HOME/$base}"
-
-  if [ -e "$dst" ]; then
-    if [ "$1" = "$(readlink "$dst")" ]; then
-      log_error "Skipping ~${dst#"$HOME"}, same file."
-      return 0
-    fi
-
-    log_arrow "Backing up ~${dst#"$HOME"}."
-    backup_file "$dst"
-  fi
-
-  log_success "Linking ~${dst#"$HOME"}"
-  ln -sf "$1" "$dst"
-}
 
 #######################
 # Gets the current OS #
@@ -94,39 +73,19 @@ get_os() {
 install_git() {
   (type git >/dev/null 2>&1 && git --version >/dev/null) || {
     log_header "Installing git"
-    "install_git_$1"
+    if [ "$1" = alpine ]; then
+      apk add --update git
+    elif [ "$1" = debian ]; then
+      apt-get -qq install git-core
+    elif [ "$1" = macos ]; then
+      printf -- "Waiting for git to be installed. Press ENTER to continue."
+      read -r
+    fi
   }
 
   # Check that git is installed
   type git >/dev/null 2>&1 && git --version >/dev/null
 }
-
-###############################
-# Instal git for alpine linux #
-###############################
-install_git_alpine() {
-  apk add --update git
-}
-
-############################################################################
-# Install git for macOS                                                    #
-#                                                                          #
-# The first time `git` is used, macOS prompts to install it, so let's wait #
-# until the user says it's finished.                                       #
-############################################################################
-install_git_macos() {
-  printf -- "Waiting for git to be installed. Press ENTER to continue."
-  read -r
-}
-
-###########################
-# Installs git for debian #
-###########################
-install_git_debian() {
-  apt-get -qq install git-core
-}
-
-
 
 ############################################
 # Download or update dotfiles              #
@@ -212,21 +171,25 @@ get_item_at_index() {
   done
 }
 
-#############################################################################
-# Prompts the user for selections from a menu                               #
-#                                                                           #
-# This function is recursive, printing the current menu as the user updates #
-# selections until the user no longer makes new selections. The list of     #
-# selected options is returned in a named variable.                         #
-#                                                                           #
-# Arguments:                                                                #
-#   - heading                                                               #
-#   - all menu options                                                      #
-#   - selected menu options                                                 #
-#   - wait time (s) for the user to interact with the menu (optional)       #
-#                                                                           #
-# Returns: the selected menu options in the variable `prompt_selections`    #
-#############################################################################
+##############################################################################
+# Prompts the user for selections from a menu                                #
+#                                                                            #
+# This function is recursive, printing the current menu as the user updates  #
+# selections until the user no longer makes new selections. The list of      #
+# selected options is returned in a named variable.                          #
+#                                                                            #
+# To keep it simple, this uses VERY fragile string parsing with whitespace   #
+# being critical. Every option must be surrounded by whitespace for matching #
+# to work. This will not work in many other contexts!                        #
+#                                                                            #
+# Arguments:                                                                 #
+#   - heading                                                                #
+#   - all menu options                                                       #
+#   - selected menu options                                                  #
+#   - wait time (s) for the user to interact with the menu (optional)        #
+#                                                                            #
+# Returns: the selected menu options in the variable `prompt_selections`     #
+##############################################################################
 prompt_menu() {
   heading=$1
   options=$2
@@ -287,67 +250,6 @@ install_things() {
   done
 }
 
-#########################################
-# Backs up a file to the backups folder #
-#                                       #
-# Arguments:                            #
-#   - file                              #
-#########################################
-backup_file() {
-  # Create backup dir if it doesn't already exist.
-  [ -e "$BACKUPS" ] || mkdir -p "$BACKUPS"
-  mv "$1" "$BACKUPS"
-}
-
-#########################################
-# Sets up everything required for MacOS #
-#########################################
-init_macos() {
-  # Install Homebrew.
-  if ! type brew >/dev/null; then
-    if [ ! -e /opt/homebrew/bin/brew ]; then
-      log_header "Installing Homebrew"
-      /bin/bash -c "$(curl --fail --silent --show-error --location \
-        https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    brew autoupdate start --upgrade
-  fi
-
-  # Exit if, for some reason, Homebrew is not installed.
-  type brew >/dev/null || {
-    log_error "Homebrew failed to install."
-    return 1
-  }
-
-  log_header "Updating Homebrew"
-  brew doctor || true # Brew is exiting non-zero with just warnings...
-  brew update
-
-  # I can't survive without jq
-  log_header "Installing essentials"
-  brew install jq
-}
-
-# Sets up everything required for Debian
-init_debian() {
-  log_header "Updating apt"
-  apt-get -qq update
-  apt-get -qq dist-upgrade
-
-  # I can't survive without jq
-  log_header "Installing essentials"
-  apt-get -qq install jq
-}
-
-init_alpine() {
-  log_header "Updating apk"
-  apk update
-
-  log_header "Installing essentials"
-  apk add curl jq
-}
-
 ##############################################
 # Enough with the functions, let's do stuff. #
 ##############################################
@@ -379,7 +281,15 @@ main() {
     }
   fi
 
+  # Source all the libs
+  for lib in $(find "$DOTFILES/lib" -name "*.sh"); do
+    log_header "Sourcing $lib"
+    . "$lib"
+  done
+
+  # Initialize the target os from magic functions in /lib
   "init_$os"
+
   install_things "$os"
 
   # Alert if backups were made.

@@ -1,9 +1,9 @@
 if [ "$1" = macos ]; then
-  brew list vim >/dev/null || brew install vim
+  brew_install vim
 elif [ "$1" = debian ]; then
-  apt-get -qq install vim
+  apt_install vim
 elif [ "$1" = alpine ]; then
-  type vim >/dev/null || apk add vim
+  apk_add vim
 else
   log_error "$1 is not supported!"
   return 0

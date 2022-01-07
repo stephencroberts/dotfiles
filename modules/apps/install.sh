@@ -1,29 +1,30 @@
 if [ "$1" = macos ]; then
   # mas is a cli for the App Store
   # https://github.com/mas-cli/mas
-  brew list mas >/dev/null || brew install mas
-  brew list --cask postman >/dev/null || brew install postman
+  brew_install mas
+  brew_cask_install docker
+  brew_cask_install nextcloud
+  brew_cask_install postman
 
   mas list | grep "1Password" >/dev/null|| mas install 1333542190 # 1Password
   mas list | grep "Evernote" >/dev/null|| mas install 406056744 # Evernote
   mas list | grep "Slack" >/dev/null|| mas install 803453959 # Slack
 
-  brew list --cask docker >/dev/null || brew install --cask docker
-  brew list --cask nextcloud >/dev/null || brew install --cask nextcloud
-
   if ! brew list --cask iterm2 >/dev/null; then
-    brew install iterm2
+    brew_cask_install iterm2
 
     # Specify the preferences directory
-    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.iterm2"
+    defaults write com.googlecode.iterm2.plist PrefsCustomFolder \
+      -string "~/.iterm2"
     # Tell iTerm2 to use the custom preferences in the directory
-    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder \
+      -bool true
   fi
 
   link_file "$DOTFILES/modules/apps/.iterm2"
 
   if ! brew list --cask divvy >/dev/null; then
-    brew install divy
+    brew_cask_install divvy
 
     echo "Open Divvy to finish installation. Press ENTER to continue."
     read

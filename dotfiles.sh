@@ -238,8 +238,7 @@ prompt_menu() {
   # enter input
   printf -- '\r\033[K'
   if printf "Toggle options (Separate options with spaces, ENTER when done): " \
-    && read -r nums \
-    && [ -n "$(echo "$nums" | xargs)" ]; then
+    && read -r nums && [ -n "$(echo "$nums" | xargs)" ]; then
 
     for num in $nums; do
 
@@ -247,8 +246,8 @@ prompt_menu() {
       option=$(get_item_at_index "$options" "$num")
 
       # Select/deselect the option
-      if echo "$selected" | grep "$option" >/dev/null; then
-        selected=$(echo "$selected" | sed "s/$option//")
+      if echo "$selected" | grep " $option " >/dev/null; then
+        selected=$(echo "$selected" | sed "s/ $option//")
       else
         selected="$selected$option "
       fi
@@ -259,7 +258,7 @@ prompt_menu() {
   fi
 
   # Return final results
-  export prompt_selections="$selected"
+  export prompt_selections=" $selected"
 }
 
 ####################################################
@@ -273,7 +272,7 @@ install_things() {
     -exec basename {} \; | sort | xargs)
 
   if [ -f "$CACHE_FILE" ]; then
-    menu_selects="$(xargs <"$CACHE_FILE") "
+    menu_selects=" $(xargs <"$CACHE_FILE") "
   fi
 
   prompt_menu 'Suh dude. Wanna install some stuff? ¯\\\_(ツ)\_/¯' \
@@ -382,7 +381,6 @@ main() {
 
   "init_$os"
   install_things "$os"
-  . "$DOTFILES/source.sh"
 
   # Alert if backups were made.
   if [ -e "$BACKUPS" ]; then

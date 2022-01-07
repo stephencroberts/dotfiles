@@ -1,5 +1,5 @@
 alias g='git'
-function ga() { git add "${@:-.}"; } # Add all files by default
+ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
 alias gpa='gp --all'
 alias gu='git pull'
@@ -13,7 +13,7 @@ alias gm='git commit -m'
 alias gma='git commit -am'
 alias gb='git branch'
 alias gba='git branch -a'
-function gc() { git checkout "${@:-master}"; } # Checkout master by default
+gc() { git checkout "${@:-master}"; } # Checkout master by default
 alias gco='gc'
 alias gcb='gc -b'
 alias gr='git remote'

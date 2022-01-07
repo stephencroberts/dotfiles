@@ -14,7 +14,8 @@ elif [ "$1" = debian ]; then
 
     # Try installing with apt with fallback to git
     apt_install fzf || {
-      git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+      [ -d "$HOME/.fzf" ] \
+        || git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
       "$HOME/.fzf/install"
     }
   fi

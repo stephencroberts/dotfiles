@@ -3,14 +3,6 @@
 export DOTFILES="$HOME/.dotfiles"
 export PATH="$DOTFILES/bin:$PATH"
 
-# Source each installed module
-for module in $(cat "$DOTFILES/.selected"); do
-  source_file="$DOTFILES/modules/${module%.sh}/source.sh"
-  if [ -f "$source_file" ]; then
-    . "$source_file"
-  fi
-done
-
 ## Homebrew
 
 [ -e /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -41,3 +33,11 @@ alias r="fc -e -"
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
+
+# Source each installed module
+for module in $(cat "$DOTFILES/.selected"); do
+  source_file="$DOTFILES/modules/$module/source.sh"
+  if [ -f "$source_file" ]; then
+    . "$source_file"
+  fi
+done

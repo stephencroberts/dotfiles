@@ -5,8 +5,10 @@ elif [ "$1" = alpine ]; then
 elif [ "$1" = debian ]; then
   apt_install zsh
 else
-  log_error "$1 is not supported!"
-  return 0
+  type zsh >/dev/null || {
+    log_error "$1 is not supported!"
+    return 0
+  }
 fi
 
 if [ ! -e "${ZDOTDIR:-$HOME}/.zprezto" ]; then

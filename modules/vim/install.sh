@@ -5,8 +5,10 @@ elif [ "$1" = debian ]; then
 elif [ "$1" = alpine ]; then
   apk_add vim
 else
-  log_error "$1 is not supported!"
-  return 0
+  type vim >/dev/null || {
+    log_error "$1 is not supported!"
+	return 0
+  }
 fi
 
 link_file "$DOTFILES/modules/vim/.vimrc"

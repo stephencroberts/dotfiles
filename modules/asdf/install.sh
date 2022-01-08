@@ -7,6 +7,9 @@ elif [ "$1" = debian ]; then
   apt_install unzip
   [ -e ~/.asdf ] || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 else
-  log_error "$1 is not supported!"
-  return 0
+  type unzip >/dev/null || {
+    log_error "$1 is not supported!"
+    return 0
+  }
+  [ -e ~/.asdf ] || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 fi

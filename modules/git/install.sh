@@ -5,8 +5,10 @@ elif [ "$1" = alpine ]; then
 elif [ "$1" = debian ]; then
   apt_install git
 else
-  log_error "$1 is not supported!"
-  return 0
+  type git >/dev/null || {
+    log_error "$1 is not supported!"
+    return 0
+  }
 fi
 
 link_file "$DOTFILES/modules/git/.gitconfig"

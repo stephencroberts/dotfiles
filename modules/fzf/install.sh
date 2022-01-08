@@ -20,5 +20,8 @@ elif [ "$1" = debian ]; then
     }
   fi
 else
-  log_error "$1 is not supported!"
+  type fzf >/dev/null || {
+    log_error "$1 is not supported!"
+    return 0
+  }
 fi

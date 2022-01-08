@@ -15,6 +15,8 @@ ipgrep_13.0.0_amd64.deb
   fi
 
 else
-  log_error "$1 is not supported!"
-  return 0
+  type rg >/dev/null || {
+    log_error "$1 is not supported!"
+    return 0
+  }
 fi

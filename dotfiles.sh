@@ -59,8 +59,7 @@ get_os() {
   then
     echo debian
   else
-    log_error "OS not supported!"
-    return 1
+    log_error "OS not supported! Attempting to move forward. Good luck!"
   fi
 }
 
@@ -288,7 +287,10 @@ main() {
   done
 
   # Initialize the target os from magic functions in /lib
-  "init_$os"
+  [ -n "$os" ] && "init_$os"
+
+  # Source dotfiles to get aliases and such
+  . "$DOTFILES/source.sh"
 
   install_things "$os"
 

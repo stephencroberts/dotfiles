@@ -34,6 +34,11 @@ alias r="fc -e -"
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
 
+# Trick to use unzip on systems that only have 7z
+if ! type unzip >/dev/null 2>&1 && type 7z >/dev/null 2>&1; then
+  alias unzip="7z e"
+fi
+
 # Source each installed module
 for module in $(cat "$DOTFILES/.selected"); do
   source_file="$DOTFILES/modules/$module/source.sh"

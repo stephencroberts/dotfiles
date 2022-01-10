@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ "$1" = macos ]; then
   brew_install git
 elif [ "$1" = alpine ]; then

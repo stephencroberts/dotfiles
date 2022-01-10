@@ -5,7 +5,7 @@ My macOS/Linux dotfiles
 ## Installation
 
 ```sh
-sh -c "$(curl -fsSL http://go.stephenroberts.io/dotfiles)"
+sh -c "$(curl -fsSL http://go.stephenroberts.io/dotfiles)" && source ~/.dotfiles/source.sh
 ```
 
 ## Overview

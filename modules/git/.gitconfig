@@ -1,6 +1,6 @@
 [user]
   name = Stephen Roberts
-  email = stephenroberts@gmail.com
+  email = stephen.roberts1@davita.com
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
@@ -57,3 +57,5 @@
   insteadOf = "gist:"
 [url "git@heroku.com:"]
   insteadOf = "heroku:"
+[pull]
+	rebase = false

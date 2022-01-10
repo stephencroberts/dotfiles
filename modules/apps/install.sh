@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ "$1" = macos ]; then
   # mas is a cli for the App Store
   # https://github.com/mas-cli/mas

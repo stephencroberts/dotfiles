@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Installs google-cloud-sdk on linux
 install_linux() {
   log_header "Finding the latest version of google-cloud-sdk"

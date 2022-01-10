@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ "$1" = macos ]; then
 
   if ! brew list fzf >/dev/null; then

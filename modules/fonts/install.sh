@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ "$1" = macos ]; then
   brew tap | grep homebrew/cask-fonnts >/dev/null \
     || brew tap homebrew/cask-fonts

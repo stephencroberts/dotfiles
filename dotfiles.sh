@@ -245,6 +245,7 @@ install_things() {
 
   for option in $prompt_selections; do
     log_header "Installing $option"
+    # shellcheck disable=SC1090
     . "$DOTFILES/modules/$option/install.sh" "$1" "$2"
   done
 }
@@ -281,8 +282,10 @@ main() {
   fi
 
   # Source all the libs
+  # shellcheck disable=SC2044
   for lib in $(find "$DOTFILES/lib" -name "*.sh"); do
     log_header "Sourcing $lib"
+    # shellcheck disable=SC1090
     . "$lib"
   done
 

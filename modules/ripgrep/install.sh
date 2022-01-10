@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ "$1" = macos ]; then
   brew_install ripgrep
 elif [ "$1" = alpine ]; then

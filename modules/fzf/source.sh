@@ -1,6 +1,14 @@
-[ -n "$ZSH_VERSION" ] && [ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-[ -n "$BASH_VERSION" ] && [ -f ~/.fzf.bash ] && . ~/.fzf.bash
+if [ "$CURRENT_SHELL" = zsh ] && [ -f ~/.fzf.zsh ]; then
+  # shellcheck disable=SC1090
+  . ~/.fzf.zsh
+fi
+
+if [ "$CURRENT_SHELL" = bash ] && [ -f ~/.fzf.bash ]; then
+  # shellcheck disable=SC1090
+  . ~/.fzf.bash
+fi
 
 # Use rg for fzf
-type rg >/dev/null 2>&1 && type fzf >/dev/null 2>&1 \
-  && export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git'
+if type rg >/dev/null 2>&1 && type fzf >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git'
+fi

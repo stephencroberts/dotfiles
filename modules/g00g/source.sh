@@ -1,7 +1,9 @@
 # Ensure gcloud is in the PATH
-[ -d /usr/local/google-cloud-sdk ] \
-  && ! echo "$PATH" | grep '/usr/local/google-cloud-sdk/bin' >/dev/null 2>&1 \
-  && export PATH="/usr/local/google-cloud-sdk/bin:$PATH"
+if [ -d /usr/local/google-cloud-sdk ] \
+  && ! echo "$PATH" | grep '/usr/local/google-cloud-sdk/bin' >/dev/null 2>&1;
+then
+  export PATH="/usr/local/google-cloud-sdk/bin:$PATH"
+fi
 
 ## Auto-completion
 
@@ -11,10 +13,12 @@ elif [ -d /usr/local/google-cloud-sdk ]; then
   gsdk_dir=/usr/local/google-cloud-sdk
 fi
 
-[ -n "$BASH_VERSION" ] \
-  && [ -e "$gsdk_dir/completion.bash.inc" ] \
-  && . "$gsdk_dir/completion.bash.inc"
+if [ "$CURRENT_SHELL" = bash ] && [ -e "$gsdk_dir/completion.bash.inc" ]; then
+  # shellcheck disable=SC1091
+  . "$gsdk_dir/completion.bash.inc"
+fi
 
-[ -n "$ZSH_VERSION" ] \
-  && [ -e "$gsdk_dir/completion.zsh.inc" ] \
-  && . "$gsdk_dir/completion.zsh.inc"
+if [ "$CURRENT_SHELL" = zsh ] && [ -e "$gsdk_dir/completion.zsh.inc" ]; then
+  # shellcheck disable=SC1091
+  . "$gsdk_dir/completion.zsh.inc"
+fi

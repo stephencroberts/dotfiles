@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # TODO: Use AWS or GCP Secret Manager to save/fetch keys
 
 mkdir -p "$HOME/.ssh"

@@ -1,7 +1,13 @@
 ## dotfiles
 
 export DOTFILES="$HOME/.dotfiles"
-export PATH="$DOTFILES/bin:$PATH"
+echo "$PATH" | grep "$DOTFILES/bin" >/dev/null 2>&1 \
+  || export PATH="$DOTFILES/bin:$PATH"
+# shellcheck disable=SC2009
+CURRENT_SHELL=$(ps | grep "^\s*$$\s" | awk '{print $4}' | tr -d -) || {
+  echo "Failed to detect the current shell!" >&2
+}
+export CURRENT_SHELL
 
 ## Homebrew
 
@@ -40,9 +46,11 @@ if ! type unzip >/dev/null 2>&1 && type 7z >/dev/null 2>&1; then
 fi
 
 # Source each installed module
+# shellcheck disable=SC2013
 for module in $(cat "$DOTFILES/.selected"); do
   source_file="$DOTFILES/modules/$module/source.sh"
   if [ -f "$source_file" ]; then
+    # shellcheck disable=SC1090
     . "$source_file"
   fi
 done

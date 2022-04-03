@@ -5,7 +5,6 @@ if [ "$1" = macos ]; then
   # https://github.com/mas-cli/mas
   brew_install mas
   brew_cask_install docker
-  brew_cask_install nextcloud
   brew_cask_install postman
 
   mas list | grep "1Password" >/dev/null|| mas install 1333542190 # 1Password

@@ -1,3 +1,7 @@
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
 alias g='git'
 ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
@@ -9,8 +13,8 @@ alias gs='git status'
 alias gst='gs'
 alias gd='git diff'
 alias gdc='gd --cached'
-alias gm='git commit -m'
-alias gma='git commit -am'
+alias gm='git commit -S -m'
+alias gma='git commit -S -am'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gc='git checkout'

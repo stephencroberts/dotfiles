@@ -6,6 +6,7 @@ if [ "$1" = macos ]; then
   brew_install mas
   brew_cask_install docker
   brew_cask_install postman
+  brew_cask_install visual-studio-code
 
   mas list | grep "1Password" >/dev/null|| mas install 1333542190 # 1Password
   mas list | grep "Evernote" >/dev/null|| mas install 406056744 # Evernote

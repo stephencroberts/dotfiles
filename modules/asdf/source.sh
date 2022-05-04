@@ -3,7 +3,7 @@ if brew --prefix asdf >/dev/null 2>&1; then
 
   # Load asdf
   # shellcheck disable=SC1091
-  . "$(brew --prefix asdf)/asdf.sh"
+  . "$(brew --prefix asdf)/libexec/asdf.sh"
 
   # Load bash completions if using bash
   if [ "$CURRENT_SHELL" = bash ]; then

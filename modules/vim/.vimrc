@@ -27,6 +27,7 @@ let mapleader=','
 syntax enable
 set background=dark
 colorscheme solarized
+highlight Normal ctermbg=16 guibg=#000000
 
 " vim-airline
 if !exists('g:airline_symbols')
@@ -140,7 +141,7 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 
-nnoremap <leader>w :q<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <leader>d :bd<CR>
 nnoremap <leader>n :nohlsearch<CR>
 nnoremap <leader>e :Explore<CR>

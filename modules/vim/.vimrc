@@ -1,8 +1,13 @@
 call plug#begin('~/.vim/plugged')
+
+" Load plugs from any dotfiles module
+let plug_sources = globpath($DOTFILES, '**/vim.plug', 1, 1)
+for plug_source in plug_sources
+  exec "source" . plug_source
+endfor
+
 Plug 'altercation/vim-colors-solarized'
 Plug 'dense-analysis/ale'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
@@ -47,12 +52,6 @@ filetype plugin on
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
-
-" fzf
-let g:fzf_layout = { 'down': '40%' }
-nmap <leader>t :Files<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>f :Rg<CR>
 
 " vim-gitgutter
 nmap <leader>g :GitGutterToggle<CR>

@@ -57,11 +57,15 @@ nmap <leader>f :Rg<CR>
 " vim-gitgutter
 nmap <leader>g :GitGutterToggle<CR>
 
+let g:ale_erlang_erlfmt_executable = 'erlfmt'
+let g:ale_erlang_erlfmt_options = '-'
+
 " ale
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'javascriptreact': ['prettier'],
 \   'css': ['prettier'],
+\   'erlang': ['erlfmt'],
 \}
 
 let g:ale_fix_on_save = 1
@@ -91,7 +95,7 @@ set list                " show trailing whitespace
 set listchars=tab:▸\ ,trail:· " set tab and trailing space charcters
 set scrolloff=4         " scroll three lines before horizontal border of window
 set showcmd             " show command in the last line of the screen
-set ignorecase          " ignore case in a pattern
+set ignorecase          " case-insensitive search by default
 set smartcase           " case-sensitive if pattern starts with cap character
 set hlsearch            " highlight search matches
 set hidden              " allow buffers to be hidden and not abandoned
@@ -100,6 +104,11 @@ set splitright          " new split goes right
 set laststatus=2        " always display the status line
 let g:netrw_banner=0    " remove banner
 let g:netrw_liststyle=3 " tree view
+
+" Search/replace visually selected text
+" https://vim.fandom.com/wiki/Search_for_visually_selected_text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR><S-n>
+vnoremap //r y/\V<C-R>=escape(@",'/\')<CR><CR><S-n>cgn
 
 function SetDefaultOptions()
   set expandtab
@@ -150,7 +159,8 @@ nnoremap <leader>e :Explore<CR>
 nnoremap <leader>m :!ctags -R .<CR>
 
 " pretty json
-nnoremap <leader>p :%!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=2)"<CR>
+nnoremap <leader>p :%!jq .<CR>
+autocmd Filetype html nnoremap <leader>p :%!tidy -config ~/.tidyrc<CR>
 
 " Trim trailing whitespace with <leader><space>
 function! StripTrailing()

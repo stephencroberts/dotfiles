@@ -22,6 +22,7 @@ link_file() {
   fi
 
   log_success "Linking ~${dst#"$HOME"}"
+  mkdir -p "$(dirname "$dst")"
   ln -sf "$1" "$dst"
 }
 

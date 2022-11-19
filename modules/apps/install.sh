@@ -3,12 +3,12 @@
 if [ "$1" = macos ]; then
   # mas is a cli for the App Store
   # https://github.com/mas-cli/mas
+  brew_install 1password
   brew_install mas
   brew_cask_install docker
   brew_cask_install postman
   brew_cask_install visual-studio-code
 
-  mas list | grep "1Password" >/dev/null|| mas install 1333542190 # 1Password
   mas list | grep "Evernote" >/dev/null|| mas install 406056744 # Evernote
   mas list | grep "Slack" >/dev/null|| mas install 803453959 # Slack
 

@@ -160,7 +160,6 @@ nnoremap <leader>m :!ctags -R .<CR>
 
 " pretty json
 nnoremap <leader>p :%!jq .<CR>
-autocmd Filetype html nnoremap <leader>p :%!tidy -config ~/.tidyrc<CR>
 
 " Trim trailing whitespace with <leader><space>
 function! StripTrailing()
@@ -257,3 +256,11 @@ function! BlockComment()
   call append(line_end+1, sep)
 endfunction
 vnoremap <silent> cc :<c-u>call BlockComment()<CR>
+
+" Source vim config from any dotfiles module
+let files = globpath($DOTFILES, '**/.vimrc', 1, 1)
+for file in files
+  if file != $DOTFILES . '/modules/vim/.vimrc'
+    exec "source" . file
+  endif
+endfor

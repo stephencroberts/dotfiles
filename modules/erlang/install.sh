@@ -5,6 +5,15 @@ type asdf >/dev/null || {
   return 0
 }
 
+if [ "$1" = alpine ]; then
+  # Required to build erlang
+  apk_add build-base
+  apk_add ncurses-dev
+  apk_add openssl-dev
+  apk_add perl
+  apk_add unixodbc-dev
+fi
+
 asdf plugin list | grep erlang >/dev/null \
   || asdf plugin add erlang
 asdf install erlang latest

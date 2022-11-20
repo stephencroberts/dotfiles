@@ -4,7 +4,7 @@ export DOTFILES="$HOME/.dotfiles"
 echo "$PATH" | grep "$DOTFILES/bin" >/dev/null 2>&1 \
   || export PATH="$DOTFILES/bin:$PATH"
 # shellcheck disable=SC2009
-CURRENT_SHELL=$(ps | grep "^\s*$$\s" | awk '{print $4}' | tr -d -) || {
+CURRENT_SHELL=$(ps -p $$ -oargs= | tr -d -) || {
   echo "Failed to detect the current shell!" >&2
 }
 export CURRENT_SHELL

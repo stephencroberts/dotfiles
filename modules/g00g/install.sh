@@ -31,8 +31,8 @@ install_linux() {
   url=$(echo "$items" | jq -r 'map({
       url: .,
       version: .
-        | capture("(?<version>\\d+)\\.\\d+\\.\\d") 
-        | .version 
+        | capture("(?<version>\\d+)\\.\\d+\\.\\d")
+        | .version
         | tonumber
     })
     | sort_by(.version)

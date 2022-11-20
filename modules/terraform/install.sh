@@ -5,6 +5,11 @@ type asdf >/dev/null || {
   return 0
 }
 
+if [ "$1" = alpine ]; then
+  apk_add gpg
+  apk_add gpg-agent
+fi
+
 asdf plugin list | grep terraform >/dev/null \
   || asdf plugin-add \
      terraform https://github.com/asdf-community/asdf-hashicorp.git

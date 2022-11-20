@@ -1,9 +1,14 @@
+" Get the list of currently installed dotfiles modules
+let dotfiles_modules = split(readfile($DOTFILES . '/.selected')[0])
+
 call plug#begin('~/.vim/plugged')
 
-" Load plugs from any dotfiles module
-let plug_sources = globpath($DOTFILES, '**/vim.plug', 1, 1)
-for plug_source in plug_sources
-  exec "source" . plug_source
+" Load plugs from installed dotfiles modules
+for module in dotfiles_modules
+  let plug = $DOTFILES . '/modules/' . module . '/vim.plug'
+  if filereadable(plug)
+    exec "source " . plug
+  endif
 endfor
 
 Plug 'altercation/vim-colors-solarized'
@@ -257,9 +262,9 @@ endfunction
 vnoremap <silent> cc :<c-u>call BlockComment()<CR>
 
 " Source vim config from any dotfiles module
-let files = globpath($DOTFILES, '**/.vimrc', 1, 1)
-for file in files
-  if file != $DOTFILES . '/modules/vim/.vimrc'
-    exec "source" . file
+for module in dotfiles_modules
+  let vimrc = $DOTFILES . '/modules/' . module . '/.vimrc'
+  if module != 'vim' && filereadable(vimrc)
+    exec "source " . vimrc
   endif
 endfor

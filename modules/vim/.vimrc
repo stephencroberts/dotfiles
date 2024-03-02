@@ -174,7 +174,11 @@ nnoremap <leader>e :Explore<CR>
 nnoremap <leader>m :!ctags -R .<CR>
 
 " pretty json
-nnoremap <leader>p :%!jq .<CR>
+autocmd Filetype json nnoremap <leader>p :%!npx prettier --stdin-filepath _file.json<CR>
+
+" sort
+vnoremap <leader>s :sort<CR>
+nnoremap <leader>s :%!jq --sort-keys<CR>
 
 " Trim trailing whitespace with <leader><space>
 function! StripTrailing()

@@ -85,29 +85,29 @@ set nocompatible        " no vi compatibility
 set number              " show line numbers
 set relativenumber      " relative line numbers
 set mouse=a             " enable mouse use in all modes
-set ttymouse=xterm2     " set mouse codes for iterm2
+set ttymouse=sgr        " set mouse codes for iterm2, no idea why xterm2 fails but sgr works
 set textwidth=80        " limit text to 80 chars
 set colorcolumn=+1      " highlight textwidth column
 highlight ColorColumn ctermbg=236   " Highlight color
 highlight clear SignColumn
 set term=xterm-256color
-set expandtab           " expand tabs to spaces
-set shiftwidth=2        " the # of spaces for indenting
-set tabstop=2           " tabs indent only 2 spaces
-set softtabstop=2       " tab key results in 2 spaces
-set list                " show trailing whitespace
+set expandtab              " expand tabs to spaces
+set shiftwidth=2           " the # of spaces for indenting
+set tabstop=2              " tabs indent only 2 spaces
+set softtabstop=2          " tab key results in 2 spaces
+set list                   " show trailing whitespace
 set listchars=tab:▸\ ,trail:· " set tab and trailing space charcters
-set scrolloff=4         " scroll three lines before horizontal border of window
-set showcmd             " show command in the last line of the screen
-set ignorecase          " case-insensitive search by default
-set smartcase           " case-sensitive if pattern starts with cap character
-set hlsearch            " highlight search matches
-set hidden              " allow buffers to be hidden and not abandoned
-set splitbelow          " new split goes below
-set splitright          " new split goes right
-set laststatus=2        " always display the status line
-let g:netrw_banner=0    " remove banner
-let g:netrw_liststyle=3 " tree view
+set scrolloff=4            " scroll three lines before horizontal border of window
+set showcmd                " show command in the last line of the screen
+set ignorecase             " case-insensitive search by default
+set smartcase              " case-sensitive if pattern starts with cap character
+set hlsearch               " highlight search matches
+set hidden                 " allow buffers to be hidden and not abandoned
+set splitbelow             " new split goes below
+set splitright             " new split goes right
+set laststatus=2           " always display the status line
+let g:netrw_banner=0       " remove banner
+let g:netrw_liststyle=3    " tree view
 
 " Search/replace visually selected text
 " https://vim.fandom.com/wiki/Search_for_visually_selected_text

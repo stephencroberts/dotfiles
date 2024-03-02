@@ -69,10 +69,18 @@ let g:ale_erlang_erlfmt_options = '-'
 
 " ale
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'javascriptreact': ['prettier'],
-\   'css': ['prettier'],
-\   'erlang': ['erlfmt'],
+\  'css': ['prettier'],
+\  'erlang': ['erlfmt'],
+\  'javascript': ['prettier'],
+\  'javascriptreact': ['prettier'],
+\  'typescript': ['prettier'],
+\  'typescriptreact': ['prettier'],
+\}
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\  'javascriptreact': ['eslint'],
+\  'typescript': ['eslint', 'tsserver'],
+\  'typescriptreact': ['eslint', 'tsserver'],
 \}
 
 let g:ale_fix_on_save = 1

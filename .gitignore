@@ -7,3 +7,5 @@
 Brewfile
 *.zip
 /modules/fonts/*/
+FiraCodeiScript/
+_build/

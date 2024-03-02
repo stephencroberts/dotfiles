@@ -2,9 +2,9 @@
 
 if [ "$1" = macos ]; then
   brew_install koekeishiya/formulae/yabai
-  brew services start yabai
+  yabai --start-service
   brew install koekeishiya/formulae/skhd
-  brew services start skhd
+  skhd --start-service
 else
   type yabai >/dev/null || {
     log_error "$1 is not supported!"

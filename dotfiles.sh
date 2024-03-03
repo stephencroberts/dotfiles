@@ -21,7 +21,7 @@
 #   Licensed under the MIT license                                       #
 ##########################################################################
 
-: "${REPO:=git://github.com/stephencroberts/dotfiles.git}"
+: "${REPO:=https://github.com/stephencroberts/dotfiles.git}"
 : "${DOTFILES:=$HOME/.dotfiles}"
 : "${CACHE_FILE:=$DOTFILES/.selected}"
 : "${BACKUPS:=$DOTFILES/backups/$(date +%s)}"

@@ -64,7 +64,7 @@ if [ "$1" = macos ]; then
   defaults write -g _HIHideMenuBar -bool true
 
   # Speeds up the keyboard.
-  defaults write -g InitialKeyRepeat -int 10
+  defaults write -g InitialKeyRepeat -int 15
   defaults write -g KeyRepeat -int 1
 
   # Speeds up the trackpad.

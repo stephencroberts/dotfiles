@@ -1,9 +1,9 @@
 [user]
   name = Stephen Roberts
-  email = stephenroberts@gmail.com
-  # signingkey = <add key id with trailing !>
+  email = sroberts@edg.io
+  signingkey = D0925A0D87FCAC3E!
 [commit]
-  # gpgsign = true
+  gpgsign = true
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space

@@ -1,7 +1,3 @@
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-type gpg-agent >/dev/null && gpgconf --launch gpg-agent
-
 alias g='git'
 ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'

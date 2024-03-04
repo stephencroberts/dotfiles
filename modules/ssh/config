@@ -1,9 +1,2 @@
 Host *
     UseKeychain yes
-Host audienceplus
-    HostName gitlab.com
-Host personal
-    HostName github.com
-    User stephencroberts
-    IdentityFile ~/.ssh/id_rsa
-    IdentitiesOnly yes

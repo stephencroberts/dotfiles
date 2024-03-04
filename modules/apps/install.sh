@@ -9,6 +9,7 @@ if [ "$1" = macos ]; then
   brew_cask_install arc
   brew_cask_install clickup
   brew_cask_install elgato-control-center
+  brew_cask_install microsoft-teams
   brew_cask_install postman
   brew_cask_install utm
   brew_cask_install visual-studio-code

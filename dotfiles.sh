@@ -75,7 +75,7 @@ install_git() {
     if [ "$1" = alpine ]; then
       apk add --update git
     elif [ "$1" = debian ]; then
-      apt-get -qq install git-core
+      $maybe_sudo apt-get -qq install git-core
     elif [ "$1" = macos ]; then
       printf -- "Waiting for git to be installed. Press ENTER to continue."
       read -r
@@ -265,6 +265,9 @@ main() {
 
   # Get the current (target) OS
   os=$(get_os)
+
+  export maybe_sudo=
+  type sudo >/dev/null 2>&1 && export maybe_sudo=sudo
 
   # Ensure git is installed
   install_git "$os" || {

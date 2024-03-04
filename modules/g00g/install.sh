@@ -41,7 +41,8 @@ install_linux() {
 
   # Download gcloud sdk and extract to the home directory
   log_header "Downloading $url"
-  curl --fail --silent --show-error --location "$url" | tar -zxf - -C /usr/local
+  curl --fail --silent --show-error --location "$url" \
+    | $maybe_sudo tar -zxf - -C /usr/local
 }
 
 
@@ -56,7 +57,7 @@ elif [ "$1" = alpine ]; then
   [ -d /usr/local/google-cloud-sdk ] || install_linux
 
 elif [ "$1" = debian ]; then
-  apt_install python #thxg00g
+  apt_install python3 #thxg00g
 
   [ -d /usr/local/google-cloud-sdk ] || install_linux
 fi

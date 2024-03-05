@@ -118,7 +118,9 @@ set splitbelow             " new split goes below
 set splitright             " new split goes right
 set laststatus=2           " always display the status line
 let g:netrw_banner=0       " remove banner
-let g:netrw_liststyle=3    " tree view
+let g:netrw_liststyle=1    " wide view
+" https://stackoverflow.com/questions/8730702/how-do-i-configure-vimrc-so-that-line-numbers-display-in-netrw-in-vim
+let g:netrw_bufsettings='noma nomod nu nobl nowrap ro' " show line numbers
 
 " Search/replace visually selected text
 " https://vim.fandom.com/wiki/Search_for_visually_selected_text

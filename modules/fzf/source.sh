@@ -12,3 +12,9 @@ fi
 if type rg >/dev/null 2>&1 && type fzf >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='rg --files --hidden --glob=!.git'
 fi
+
+# Enable key bindings and auto-completion
+if [ "$CURRENT_SHELL" != sh ] && [ -d /usr/share/doc/fzf/examples ]; then
+  . /usr/share/doc/fzf/examples/key-bindings.zsh
+  . /usr/share/doc/fzf/examples/completion.zsh
+fi

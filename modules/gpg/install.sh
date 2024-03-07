@@ -3,6 +3,8 @@
 if [ "$1" = macos ]; then
   brew_install gnupg
   brew_install pinentry-mac
+  link_file "$DOTFILES/modules/gpg/gpg-agent.conf" \
+    "$HOME/.gnupg/gpg-agent.conf"
 elif [ "$1" = alpine ]; then
   apk_add gpg
   apk_add gpg-agent
@@ -12,7 +14,8 @@ elif [ "$1" = alpine ]; then
   mkdir $HOME/.gnupg
 elif [ "$1" = debian ]; then
   apt_install gpg
-  apt_install pinentry-tty
+  link_file "$DOTFILES/modules/gpg/gpg-agent.debian.conf" \
+    "$HOME/.gnupg/gpg-agent.conf"
 else
   type gpg >/dev/null || {
     log_error "$1 is not supported!"
@@ -21,5 +24,3 @@ else
 fi
 
 link_file "$DOTFILES/modules/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
-link_file "$DOTFILES/modules/gpg/gpg-agent.conf" \
-  "$HOME/.gnupg/gpg-agent.conf"

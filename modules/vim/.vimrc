@@ -90,7 +90,10 @@ let g:ale_fix_on_save = 1
 """""""""""
 
 nnoremap ; :
-set clipboard=unnamed   " use system clipboard
+set clipboard=unnamedplus   " use system clipboard
+if has('mac')
+  set clipboard=unnamed   " use system clipboard
+endif
 set directory-=.        " don't store swapfiles in current directory
 set nocompatible        " no vi compatibility
 set number              " show line numbers

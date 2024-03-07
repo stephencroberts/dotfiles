@@ -8,6 +8,7 @@ init_debian() {
   log_header "Installing essentials"
   $maybe_sudo apt-get -qq install curl
   $maybe_sudo apt-get -qq install jq
+  $maybe_sudo apt-get -qq install xclip
 }
 
 apt_install() {

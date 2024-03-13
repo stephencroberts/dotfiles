@@ -5,24 +5,41 @@ type op >/dev/null || {
   return 0
 }
 
-if [ "$1" = debian ]; then
+get_vpn_config() {
+  echo "The VPN config and credentials are pulled from a 1Password secret with the following fields:"
+  echo "  - username"
+  echo "  - password"
+  echo "  - authgroup"
+  echo "  - website"
+  echo
+  echo "Ensure you have a secret created and a 1Password service account token with access to the secret before continuing!"
+  echo
+  printf -- "Vault: "
+  read -r vault
+  printf -- "Secret: "
+  read -r secret
+  printf -- "Token: "
+  read -r token
+}
+
+if [ "$1" = macos ]; then
+  brew_install openconnect
+  brew_install vpn-slice
+
+  mkdir -p "$HOME/.vpn"
+  touch "$HOME/.vpn/routes"
+
+  if ! cat "$DOTFILES/.local" | grep "VPN_" 2>&1 >/dev/null; then
+    get_vpn_config
+    printf -- "\nexport VPN_VAULT=\"%s\"\nexport VPN_SECRET=\"%s\"\nexport OP_SERVICE_ACCOUNT_TOKEN=\"%s\"" \
+      "$vault" "$secret" "$token" >>"$DOTFILES/.local"
+  fi
+
+elif [ "$1" = debian ]; then
   apt_install openconnect
 
   if [ ! -d "/etc/systemd/system/openconnect.service" ]; then
-    echo "The VPN config and credentials are pulled from a 1Password secret with the following fields:"
-    echo "  - username"
-    echo "  - password"
-    echo "  - authgroup"
-    echo "  - website"
-    echo
-    echo "Ensure you have a secret created and a 1Password service account token with access to the secret before continuing!"
-    echo
-    printf -- "Vault: "
-    read -r vault
-    printf -- "Secret: "
-    read -r secret
-    printf -- "Token: "
-    read -r token
+    get_vpn_config
     cat >openconnect.service <<EOF
 [Unit]
 Description=OpenConnect service

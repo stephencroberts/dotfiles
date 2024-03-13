@@ -54,3 +54,9 @@ for module in $(cat "$DOTFILES/.selected"); do
     . "$source_file"
   fi
 done
+
+# Source stuff for just this machine
+if [ -e "$DOTFILES/.local" ]; then
+  # shellcheck disable=SC1090
+  . "$DOTFILES/.local"
+fi

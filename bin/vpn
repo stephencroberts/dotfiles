@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+: VPN_VAULT=${VPN_VAULT?}
+: VPN_SECRET=${VPN_SECRET?}
+: VPN_ROUTES=${VPN_ROUTES:=$HOME/.vpn/routes}
+
+main() {
+  username=$(op read "op://$VPN_VAULT/$VPN_SECRET/username")
+  password=$(op read "op://$VPN_VAULT/$VPN_SECRET/password")
+  authgroup=$(op read "op://$VPN_VAULT/$VPN_SECRET/authgroup")
+  website=$(op read "op://$VPN_VAULT/$VPN_SECRET/website")
+  otp=$(op item get "$VPN_SECRET" --otp --vault "$VPN_VAULT")
+  oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')
+
+  if [ -e "$VPN_ROUTES" ]; then
+    routes=$(cat "$VPN_ROUTES" | xargs)
+  fi
+
+  [ -n "$routes" ] ||
+    printf -- "\e[1;33m[WARN] No routes found in %s\e[1;0m\n" "$VPN_ROUTES"
+
+  printf -- "%s\n%s\n" "$password" "$otp" \
+    | sudo openconnect \
+      --user="$username" \
+      --authgroup="$authgroup" \
+      --script="vpn-slice $routes" \
+      --csd-user="$USER" \
+      --csd-wrapper=/usr/libexec/openconnect/csd-post.sh \
+      --csd-wrapper="$oc_dir/libexec/openconnect/csd-post.sh" \
+      --os=mac-intel \
+      --non-inter \
+      --passwd-on-stdin \
+      "$website"
+}
+
+main "$@"

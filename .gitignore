@@ -1,6 +1,9 @@
 # Dotfiles init cache
 /.selected
 
+# Profile stuff for just this machine
+/.local
+
 # Lots of junk goes in here.
 /backups/
 

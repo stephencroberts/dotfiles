@@ -1,2 +1,10 @@
 Host *
     UseKeychain yes
+
+# When developing remotely, add a host entry to enable clipboard syncing:
+# Host thequeenspride
+#     HostName <remote ip>
+#     ForwardX11 yes
+#     ForwardX11Trusted yes
+#     ServerAliveCountMax 3
+#     ServerAliveInterval 10

@@ -32,4 +32,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   }
 fi
 
+if type zoxide >/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 source "$HOME/.dotfiles/source.sh"

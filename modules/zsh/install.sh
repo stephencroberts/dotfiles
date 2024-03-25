@@ -2,10 +2,15 @@
 
 if [ "$1" = macos ]; then
   brew_install zsh
+  brew_install zoxide
 elif [ "$1" = alpine ]; then
   apk_add zsh
 elif [ "$1" = debian ]; then
   apt_install zsh
+  type zoxide >/dev/null || {
+    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    $maybe_sudo mv "$HOME/.local/bin/zoxide" /usr/local/bin
+  }
 else
   type zsh >/dev/null || {
     log_error "$1 is not supported!"

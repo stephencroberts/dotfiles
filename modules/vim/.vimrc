@@ -57,9 +57,7 @@ filetype plugin on
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
-let g:NERDCustomDelimiters = {
-  \ 'terraform': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }
-\ }
+let g:NERDCustomDelimiters = {}
 
 " vim-gitgutter
 nmap <leader>g :GitGutterToggle<CR>

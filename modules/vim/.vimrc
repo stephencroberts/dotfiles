@@ -178,6 +178,9 @@ nnoremap <leader>e :Explore<CR>
 " ctags
 nnoremap <leader>m :!ctags -R .<CR>
 
+" x
+nnoremap <expr> <leader>rx ':xrestore ' . $DISPLAY . '<CR>'
+
 " pretty json
 autocmd Filetype json nnoremap <leader>p :%!npx prettier --stdin-filepath _file.json<CR>
 

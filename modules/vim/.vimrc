@@ -152,12 +152,6 @@ function SetMarkdownOptions()
 endfunction
 autocmd Filetype md call SetMarkdownOptions()
 
-function SetDockerfileOptions()
-  set expandtab
-  set textwidth=0
-endfunction
-autocmd BufNewFile,BufRead Dockerfile call SetDockerfileOptions()
-
 " Easier splits
 nnoremap <C-\> :vsp<CR>
 nnoremap <C-_> :sp<CR>

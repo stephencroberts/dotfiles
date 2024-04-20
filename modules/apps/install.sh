@@ -13,9 +13,10 @@ if [ "$1" = macos ]; then
   brew_cask_install utm
   brew_cask_install visual-studio-code
 
-  mas list | grep "MeetingBar" >/dev/null|| mas install 1532419400 # MeetingBar
-  mas list | grep "Slack" >/dev/null|| mas install 803453959 # Slack
-  mas list | grep "Spark" >/dev/null|| mas install 1176895641 # Spark
+  mas list | grep "1Password for Safari" >/dev/null || mas install 1569813296
+  mas list | grep "MeetingBar" >/dev/null|| mas install 1532419400
+  mas list | grep "Slack" >/dev/null|| mas install 803453959
+  mas list | grep "Spark" >/dev/null|| mas install 1176895641
 
   if ! brew list --cask iterm2 >/dev/null; then
     brew_cask_install iterm2

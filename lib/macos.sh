@@ -10,7 +10,6 @@ init_macos() {
         https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
     eval "$(/opt/homebrew/bin/brew shellenv)"
-    brew autoupdate start --upgrade
   fi
 
   # Exit if, for some reason, Homebrew is not installed.

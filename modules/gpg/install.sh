@@ -39,3 +39,9 @@ if [ "$(gpg --list-secret-keys | wc -l | xargs)" = 0 ]; then
     op read "op://$vault/$secret/$file" | gpg --import
   fi
 fi
+
+if [ -z "$(cat "$HOME/.gnupg/sshcontrol" | grep -v "#" | xargs)" ]; then
+  printf -- "SSH keygrip: "
+  read -r keyid
+  echo "$keyid" >>"$HOME/.gnupg/sshcontrol"
+fi

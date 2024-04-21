@@ -24,7 +24,6 @@ else
 fi
 
 link_file "$DOTFILES/modules/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
-chmod 700 "$HOME/.gnupg"
 
 if [ "$(gpg --list-secret-keys | wc -l | xargs)" = 0 ]; then
   printf -- "Import GPG key from 1Password (y/n)? "
@@ -45,3 +44,6 @@ if [ -z "$(cat "$HOME/.gnupg/sshcontrol" | grep -v "#" | xargs)" ]; then
   read -r keyid
   echo "$keyid" >>"$HOME/.gnupg/sshcontrol"
 fi
+
+chmod 700 "$HOME/.gnupg"
+chmod 600 $HOME/.gnupg/*

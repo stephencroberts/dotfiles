@@ -5,4 +5,5 @@ if [ "$1" = macos ]; then
 fi
 
 mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
 link_file "$DOTFILES/modules/ssh/config" "$HOME/.ssh/config"

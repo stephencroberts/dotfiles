@@ -24,3 +24,18 @@ else
 fi
 
 link_file "$DOTFILES/modules/gpg/gpg.conf" "$HOME/.gnupg/gpg.conf"
+chmod 700 "$HOME/.gnupg"
+
+if [ "$(gpg --list-secret-keys | wc -l | xargs)" = 0 ]; then
+  printf -- "Import GPG key from 1Password (y/n)? "
+  read -r answer
+  if [ "$answer" = y ]; then
+    printf -- "Vault: "
+    read -r vault
+    printf -- "Secret: "
+    read -r secret
+    printf -- "File: "
+    read -r file
+    op read "op://$vault/$secret/$file" | gpg --import
+  fi
+fi

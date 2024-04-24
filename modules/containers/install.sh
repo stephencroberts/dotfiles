@@ -31,6 +31,8 @@ elif [ "$1" = debian ]; then
   getent group | grep "^docker:" 2>&1 >/dev/null || $maybe_sudo groupadd docker
   groups "$USER" | grep docker 2>&1 >/dev/null \
     || $maybe_sudo usermod -aG docker "$USER"
+
+  apt_install docker-compose-plugin
 else
   type docker >/dev/null || {
     log_error "$1 is not supported!"

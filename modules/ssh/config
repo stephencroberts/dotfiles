@@ -8,3 +8,5 @@ Host *
 #     ForwardX11Trusted yes
 #     ServerAliveCountMax 3
 #     ServerAliveInterval 10
+
+Include config.local

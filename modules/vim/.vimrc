@@ -122,6 +122,11 @@ let g:netrw_banner=0       " remove banner
 let g:netrw_liststyle=1    " wide view
 " https://stackoverflow.com/questions/8730702/how-do-i-configure-vimrc-so-that-line-numbers-display-in-netrw-in-vim
 let g:netrw_bufsettings='noma nomod nu nobl nowrap ro' " show line numbers
+" Disable clipboard for netrw if using over SSH
+" https://github.com/vim/vim/issues/7259#issuecomment-908196361
+if $SSH_CLIENT != ""
+  let g:netrw_clipboard=0
+endif
 
 " Search/replace visually selected text
 " https://vim.fandom.com/wiki/Search_for_visually_selected_text

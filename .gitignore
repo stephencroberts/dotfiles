@@ -12,3 +12,15 @@ Brewfile
 /modules/fonts/*/
 FiraCodeiScript/
 _build/
+
+# GNU Global
+/GPATH
+/GRTAGS
+/GTAGS
+
+# ctags
+/.ctags.d
+/tags
+
+# Other module-specific stuff
+/modules/dev-tools/*.vim

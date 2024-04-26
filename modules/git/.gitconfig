@@ -37,6 +37,7 @@
   cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [init]
   defaultBranch = prod
+  templatedir = ~/.git_template
 [gpg]
   program = /opt/homebrew/bin/gpg
 [merge]

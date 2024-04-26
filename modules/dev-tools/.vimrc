@@ -1,3 +1,9 @@
+" markdown preview
+let g:mkdp_echo_preview_url = 1
+let g:mkdp_port = '9038'
+nmap <leader>mp :MarkdownPreview<CR>
+nmap <leader>mps :MarkdownPreviewStop<CR>
+
 " Use default mappings
 let GtagsCscope_Auto_Map = 1
 " Ignore case for tag search

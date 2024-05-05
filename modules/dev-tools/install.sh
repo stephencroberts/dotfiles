@@ -28,6 +28,8 @@ if [ "$1" = debian ]; then
   apt_install gperf
   apt_install bison
   apt_install flex
+elif [ "$1" = macos ]; then
+  brew_install universal-ctags
 else
   if ! type ctags >/dev/null && ctags --version | grep "Universal Ctags" 2>&1 /dev/null; then
     log_error "$1 is not supported!"

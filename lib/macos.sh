@@ -26,9 +26,18 @@ init_macos() {
   log_header "Installing essentials"
   brew_install jq
 
+
   # Enable touch/watch id for sudo
   # https://sixcolors.com/post/2023/08/in-macos-sonoma-touch-id-for-sudo-can-survive-updates/
   # https://andre.arko.net/2020/07/10/sudo-with-touchid-and-apple-watch-even-inside-tmux/
+
+  brew_install pam-reattach
+
+  sudo mkdir -p /usr/local/lib/pam
+  if [ ! -e /usr/local/lib/pam/pam_watchid.so ]; then
+    sudo cp "$DOTFILES/lib/pam_watchid.so" /usr/local/lib/pam/pam_watchid.so
+  fi
+
   if [ ! -e "/etc/pam.d/sudo_local" ]; then
     cat >sudo_local <<EOF
 auth       optional       /opt/homebrew/lib/pam/pam_reattach.so
@@ -38,12 +47,6 @@ EOF
     sudo mv sudo_local /etc/pam.d/sudo_local
   fi
 
-  sudo mkdir -p /usr/local/lib/pam
-  if [ ! -e /usr/local/lib/pam/pam_watchid.so ]; then
-    sudo cp "$DOTFILES/lib/pam_watchid.so" /usr/local/lib/pam/pam_watchid.so
-  fi
-
-  brew_install pam-reattach
 }
 
 brew_install() {

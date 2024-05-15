@@ -18,6 +18,8 @@ asdf global just latest
 ######################
 
 if [ "$1" = debian ]; then
+  apt_install inotify-tools
+
   # Use ctags as backend for global
   snap_install universal-ctags
 

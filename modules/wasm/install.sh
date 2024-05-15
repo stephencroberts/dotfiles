@@ -6,5 +6,5 @@ type asdf >/dev/null || {
 }
 
 asdf plugin list | grep wasmtime >/dev/null || asdf plugin-add wasmtime
-asdf install wasmtime latest
-asdf global wasmtime latest
+asdf install wasmtime v20.0.2
+asdf global wasmtime v20.0.2

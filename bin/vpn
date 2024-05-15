@@ -32,6 +32,7 @@ main() {
       --os=mac-intel \
       --non-inter \
       --passwd-on-stdin \
+      "$@" \
       "$website"
 }
 

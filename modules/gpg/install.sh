@@ -11,7 +11,7 @@ elif [ "$1" = alpine ]; then
 
   # Fix agent graph
   # https://github.com/NixOS/nixpkgs/issues/29331
-  mkdir $HOME/.gnupg
+  mkdir -p "$HOME/.gnupg"
 elif [ "$1" = debian ]; then
   apt_install gpg
   link_file "$DOTFILES/modules/gpg/gpg-agent.debian.conf" \
@@ -47,3 +47,11 @@ fi
 
 chmod 700 "$HOME/.gnupg"
 chmod 600 $HOME/.gnupg/*
+
+# (Re)Start the agent
+if type gpg-agent >/dev/null && type gpgconf >/dev/null; then
+  GPG_TTY=$(tty)
+  export GPG_TTY
+  gpgconf --kill gpg-agent
+  gpgconf --launch gpg-agent
+fi

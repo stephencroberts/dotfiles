@@ -9,7 +9,6 @@
   rb = rbranch
   rv = review
   st = status
-  ksdiff = difftool -y -t Kaleidoscope
 [apply]
   whitespace = fix
 [color]
@@ -18,11 +17,6 @@
   current = yellow reverse
   local = yellow
   remote = green
-[color "diff"]
-  meta = yellow bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
 [color "status"]
   added = yellow
   changed = green
@@ -31,16 +25,22 @@
   gpgsign = true
 [core]
   autocrlf = input
-  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
-[difftool "Kaleidoscope"]
-  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+  pager = delta
+  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+[delta]
+  line-numbers = true
+[diff]
+  colorMoved = default
 [init]
   defaultBranch = prod
   templatedir = ~/.git_template
+[interactive]
+  diffFilter = delta --color-only
 [gpg]
   program = /opt/homebrew/bin/gpg
 [merge]
+  conflictstyle = diff3
   log = true
 [pull]
   rebase = false

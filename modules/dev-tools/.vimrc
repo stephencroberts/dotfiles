@@ -1,8 +1,6 @@
-" markdown preview
-let g:mkdp_echo_preview_url = 1
-let g:mkdp_port = '9038'
-nmap <leader>mp :MarkdownPreview<CR>
-nmap <leader>mps :MarkdownPreviewStop<CR>
+" vivify
+nmap <leader>mp :Vivify<CR>
+" TODO: need to automate vivify install
 
 " Use default mappings
 let GtagsCscope_Auto_Map = 1

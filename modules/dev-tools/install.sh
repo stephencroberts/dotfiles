@@ -70,3 +70,11 @@ link_file "$DOTFILES/modules/dev-tools/git/post-checkout" "$HOME/.git_template/h
 link_file "$DOTFILES/modules/dev-tools/git/post-commit" "$HOME/.git_template/hooks/post-commit"
 link_file "$DOTFILES/modules/dev-tools/git/post-merge" "$HOME/.git_template/hooks/post-merge"
 link_file "$DOTFILES/modules/dev-tools/git/post-rewrite" "$HOME/.git_template/hooks/post-rewrite"
+
+##########
+# Vivify #
+##########
+
+if [ "$1" = macos ]; then
+  brew_install jannis-baum/tap/vivify
+fi

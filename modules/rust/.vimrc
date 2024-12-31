@@ -1,6 +1,6 @@
-" let g:ale_fixers['rust'] = ['rustfmt']
+let g:ale_fixers['rust'] = ['rustfmt']
 let g:ale_linters['rust'] = []
-" let g:ale_rust_rustfmt_options = '--edition 2021'
+let g:ale_rust_rustfmt_options = '--edition 2021'
 " let g:ale_rust_analyzer_config = {
 "   \ 'diagnostics': { 'disabled': ['unresolved-import'] },
 "   \ 'cargo': { 'loadOutDirsFromCheck': v:true },
@@ -9,15 +9,15 @@ let g:ale_linters['rust'] = []
 "   \ }
 
 " Stuff to try
-" let g:ale_completion_enabled = 1 
+" let g:ale_completion_enabled = 1
 " let g:ale_linters = {'rust': ['analyzer', 'cargo']}
-" let g:ale_fixers = { 
+" let g:ale_fixers = {
 "     \'rust': ['rustfmt'],
 "     \'javascript': ['prettier'],
 " \}
 " let g:ale_rust_rustfmt_options = '--edition 2018'
 " let g:ale_rust_cargo_use_clippy = 1
-" let g:ale_rust_cargo_check_tests = 1 
+" let g:ale_rust_cargo_check_tests = 1
 " let g:ale_rust_cargo_check_examples = 1
 
 " nmap <silent> <Leader>f <Plug>(ale_fix)

@@ -15,3 +15,12 @@ fi
 
 link_file "$DOTFILES/modules/tmux/.tmux.conf"
 link_file "$DOTFILES/modules/tmux/.tmuxline.conf"
+
+if [ -d "$HOME/.tmux/plugins/tpm/.git" ]; then
+  wd=$PWD
+  cd "$HOME/.tmux/plugins/tpm"
+  git pull
+  cd "$wd"
+else
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi

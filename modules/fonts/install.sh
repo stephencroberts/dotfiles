@@ -5,8 +5,6 @@ if [ ! -d FiraCodeiScript ]; then
 fi
 
 if [ "$1" = macos ]; then
-  brew tap | grep homebrew/cask-fonnts >/dev/null \
-    || brew tap homebrew/cask-fonts
   brew_cask_install font-fira-code
   cp FiraCodeiScript/*.ttf $HOME/Library/Fonts
 else

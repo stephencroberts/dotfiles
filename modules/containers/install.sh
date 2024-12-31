@@ -3,6 +3,7 @@
 if [ "$1" = macos ]; then
   brew_install colima
   brew_install docker
+  brew_install docker-compose
 elif [ "$1" = debian ]; then
   # https://docs.docker.com/engine/install/ubuntu/
   for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do

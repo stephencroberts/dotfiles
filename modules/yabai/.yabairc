@@ -49,7 +49,9 @@ yabai -m config window_gap                   0
 yabai -m rule --add app="^1Password" sticky=on
 yabai -m rule --add app="^Calendar" sticky=on
 yabai -m rule --add app="^Digital Colou?r Meter$" sticky=on
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Toggl" manage=off
 
 # Debugging
 yabai -m config debug_output on

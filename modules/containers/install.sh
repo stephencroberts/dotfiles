@@ -2,6 +2,7 @@
 
 if [ "$1" = macos ]; then
   brew_install colima
+  brew services start colima
   brew_install docker
   brew_install docker-compose
 elif [ "$1" = debian ]; then

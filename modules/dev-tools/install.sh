@@ -9,9 +9,9 @@ type asdf >/dev/null || {
 # just #
 ########
 
-asdf plugin list | grep just >/dev/null || asdf plugin-add just
-asdf install just latest
-asdf global just latest
+asdf plugin list | grep just >/dev/null || asdf plugin add just
+asdf install just latest || true
+asdf set -u just latest
 
 ######################
 # GNU Global + ctags #

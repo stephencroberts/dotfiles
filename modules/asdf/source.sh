@@ -1,14 +1,10 @@
 # macos/homebrew
 if brew --prefix asdf >/dev/null 2>&1; then
+  export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
-  # Load asdf
-  # shellcheck disable=SC1091
-  . "$(brew --prefix asdf)/libexec/asdf.sh"
-
-  # Load bash completions if using bash
-  if [ "$CURRENT_SHELL" = bash ]; then
-    # shellcheck disable=SC1091
-    . "$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
+  if [ "$CURRENT_SHELL" = zsh ]; then
+    fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+    autoload -Uz compinit && compinit
   fi
 
 # Non-homebrew, probably in the HOME directory

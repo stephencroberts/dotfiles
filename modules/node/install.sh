@@ -6,7 +6,7 @@ type asdf >/dev/null || {
 }
 
 asdf plugin list | grep nodejs >/dev/null \
-  || asdf plugin-add \
+  || asdf plugin add \
      nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs latest
-asdf global nodejs latest
+asdf install nodejs latest || true
+asdf set -u nodejs latest

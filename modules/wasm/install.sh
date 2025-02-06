@@ -5,6 +5,6 @@ type asdf >/dev/null || {
   return 0
 }
 
-asdf plugin list | grep wasmtime >/dev/null || asdf plugin-add wasmtime
-asdf install wasmtime v20.0.2
-asdf global wasmtime v20.0.2
+asdf plugin list | grep wasmtime >/dev/null || asdf plugin add wasmtime
+asdf install wasmtime v20.0.2 || true
+asdf set -u wasmtime v20.0.2

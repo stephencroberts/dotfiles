@@ -7,5 +7,5 @@ type asdf >/dev/null || {
 
 asdf plugin list | grep golang >/dev/null \
   || asdf plugin add golang
-asdf install golang latest
-asdf global golang latest
+asdf install golang latest || true
+asdf set -u golang latest

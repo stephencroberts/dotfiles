@@ -6,5 +6,5 @@ type asdf >/dev/null || {
 }
 
 asdf plugin list | grep dotnet >/dev/null || asdf plugin add dotnet
-asdf install dotnet latest
-asdf global dotnet latest
+asdf install dotnet latest || true
+asdf set -u dotnet latest

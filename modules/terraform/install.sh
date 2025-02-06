@@ -11,7 +11,7 @@ if [ "$1" = alpine ]; then
 fi
 
 asdf plugin list | grep terraform >/dev/null \
-  || asdf plugin-add \
+  || asdf plugin add \
      terraform https://github.com/asdf-community/asdf-hashicorp.git
-asdf install terraform latest
-asdf global terraform latest
+asdf install terraform latest || true
+asdf set -u terraform latest

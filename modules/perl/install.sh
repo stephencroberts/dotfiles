@@ -6,6 +6,6 @@ type asdf >/dev/null || {
 }
 
 asdf plugin list | grep perl >/dev/null \
-  || asdf plugin-add perl
-asdf install perl latest
-asdf global perl latest
+  || asdf plugin add perl
+asdf install perl latest || true
+asdf set -u perl latest

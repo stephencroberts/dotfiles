@@ -284,6 +284,7 @@ Export the keys you just created to a secure backup in 1password.
 ## Export keys from GPG
 ## Replace [email] in all the commands below with the email used for the key
 ## Replace [ultimate KEYID] in all commands below with the key-id
+## IMPORTANT: use dashes instead of special chars: name-gmail-com
 gpg --output \<[email]-pub\>.gpg --armor --export [ultimate KEYID]
 gpg --output \<[email]-secret-keys\>.gpg --armor --export-secret-keys [ultimate KEYID]
 gpg --output \<[email]-secret-subkeys\>.gpg --armor --export-secret-subkeys [ultimate KEYID]

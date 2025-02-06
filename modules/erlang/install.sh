@@ -16,13 +16,13 @@ fi
 
 asdf plugin list | grep erlang >/dev/null \
   || asdf plugin add erlang
-asdf install erlang latest
-asdf global erlang latest
+asdf install erlang latest || true
+asdf set -u erlang latest
 
 asdf plugin list | grep rebar >/dev/null \
   || asdf plugin add rebar
-asdf install rebar latest
-asdf global rebar latest
+asdf install rebar latest || true
+asdf set -u rebar latest
 
 # Hack to fix issue with terminal output being garbled after using rebar3
 # https://github.com/erlang/rebar3/issues/2472#issuecomment-762270455

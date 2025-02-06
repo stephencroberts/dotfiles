@@ -5,6 +5,6 @@ type asdf >/dev/null || {
   return 0
 }
 
-asdf plugin list | grep python >/dev/null || asdf plugin-add python
-asdf install python latest
-asdf global python latest
+asdf plugin list | grep python >/dev/null || asdf plugin add python
+asdf install python latest || true
+asdf set -u python latest

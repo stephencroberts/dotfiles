@@ -2,6 +2,8 @@
 
 if [ "$1" = macos ]; then
   brew_install asdf
+  mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+  asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
 elif [ "$1" = alpine ]; then
   apk_add unzip
   [ -e ~/.asdf ] || git clone https://github.com/asdf-vm/asdf.git ~/.asdf

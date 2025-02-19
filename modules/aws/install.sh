@@ -8,3 +8,8 @@ type asdf >/dev/null || {
 asdf plugin list | grep awscli >/dev/null || asdf plugin add awscli
 asdf install awscli latest || true
 asdf set -u awscli latest
+
+# Enable aws cli integration
+if type op >/dev/null; then
+  op plugin init aws
+fi

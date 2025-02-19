@@ -29,20 +29,24 @@ if [ "$(gpg --list-secret-keys | wc -l | xargs)" = 0 ]; then
   printf -- "Import GPG key from 1Password (y/n)? "
   read -r answer
   if [ "$answer" = y ]; then
+    printf -- "Account: "
+    read -r account
     printf -- "Vault: "
     read -r vault
     printf -- "Secret: "
     read -r secret
     printf -- "File: "
     read -r file
-    op read "op://$vault/$secret/$file" | gpg --import
+    op --account "$account" read "op://$vault/$secret/$file" | gpg --import
   fi
-fi
 
-if [ -z "$(cat "$HOME/.gnupg/sshcontrol" | grep -v "#" | xargs)" ]; then
-  printf -- "SSH keygrip: "
-  read -r keyid
-  echo "$keyid" >>"$HOME/.gnupg/sshcontrol"
+  gpg -K --with-keygrip
+
+  printf -- "If you would like to setup ssh, enter the keygrip: "
+  read -r keygrip
+  if [ -n "$keygrip" ]; then
+    gpg-connect-agent "keyattr $keygrip Use-for-ssh: true" /bye
+  fi
 fi
 
 chmod 700 "$HOME/.gnupg"

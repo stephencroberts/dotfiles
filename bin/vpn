@@ -2,16 +2,17 @@
 
 set -e
 
+: VPN_ACCOUNT=${VPN_ACCOUNT?}
 : VPN_VAULT=${VPN_VAULT?}
 : VPN_SECRET=${VPN_SECRET?}
 : VPN_ROUTES=${VPN_ROUTES:=$HOME/.vpn/routes}
 
 main() {
-  username=$(op read "op://$VPN_VAULT/$VPN_SECRET/username")
-  password=$(op read "op://$VPN_VAULT/$VPN_SECRET/password")
-  authgroup=$(op read "op://$VPN_VAULT/$VPN_SECRET/authgroup")
-  website=$(op read "op://$VPN_VAULT/$VPN_SECRET/website")
-  otp=$(op item get "$VPN_SECRET" --otp --vault "$VPN_VAULT")
+  username=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/username")
+  password=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/password")
+  authgroup=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/authgroup")
+  website=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/website")
+  otp=$(op --account "$VPN_ACCOUNT" item get "$VPN_SECRET" --otp --vault "$VPN_VAULT")
   oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')
 
   if [ -e "$VPN_ROUTES" ]; then

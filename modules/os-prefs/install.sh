@@ -32,7 +32,7 @@ if [ "$1" = macos ]; then
         <key>file-data</key>
         <dict>
           <key>_CFURLString</key>
-          <string>file:///Users/stephenroberts/Downloads/</string>
+          <string>file:///Users/'$USER'/Downloads/</string>
           <key>_CFURLStringType</key>
           <integer>15</integer>
         </dict>
@@ -41,7 +41,7 @@ if [ "$1" = macos ]; then
         <key>file-label</key>
         <string>Downloads</string>
         <key>url</key>
-        <string>file:///Users/stephenroberts/Downloads/</string>
+        <string>file:///Users/'$USER'/Downloads/</string>
       </dict>
       <key>tile-type</key>
       <string>directory-tile</string>

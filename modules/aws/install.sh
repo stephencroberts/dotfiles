@@ -11,5 +11,9 @@ asdf set -u awscli latest
 
 # Enable aws cli integration
 if type op >/dev/null; then
-  op plugin init aws
+  printf -- "Configure 1Password AWS plugin (y/n)? "
+  read -r answer
+  if [ "$answer" = y ]; then
+    op plugin init aws
+  fi
 fi

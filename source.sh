@@ -1,11 +1,11 @@
 ## dotfiles
 
 export DOTFILES="$HOME/.dotfiles"
-echo "$PATH" | grep "$DOTFILES/bin" >/dev/null 2>&1 \
-  || export PATH="$DOTFILES/bin:$PATH"
+echo "$PATH" | grep "$DOTFILES/bin" >/dev/null 2>&1 ||
+	export PATH="$DOTFILES/bin:$PATH"
 # shellcheck disable=SC2009
 CURRENT_SHELL=$(ps -p $$ -oargs= | tr -d - | awk '{print $1}') || {
-  echo "Failed to detect the current shell!" >&2
+	echo "Failed to detect the current shell!" >&2
 }
 export CURRENT_SHELL
 
@@ -42,21 +42,21 @@ alias c="tr -d '\n' | pbcopy"
 
 # Trick to use unzip on systems that only have 7z
 if ! type unzip >/dev/null 2>&1 && type 7z >/dev/null 2>&1; then
-  alias unzip="7z e"
+	alias unzip="7z e"
 fi
 
 # Source each installed module
 # shellcheck disable=SC2013
 for module in $(cat "$DOTFILES/.selected"); do
-  source_file="$DOTFILES/modules/$module/source.sh"
-  if [ -f "$source_file" ]; then
-    # shellcheck disable=SC1090
-    . "$source_file"
-  fi
+	source_file="$DOTFILES/modules/$module/source.sh"
+	if [ -f "$source_file" ]; then
+		# shellcheck disable=SC1090
+		. "$source_file"
+	fi
 done
 
 # Source stuff for just this machine
 if [ -e "$DOTFILES/.local" ]; then
-  # shellcheck disable=SC1090
-  . "$DOTFILES/.local"
+	# shellcheck disable=SC1090
+	. "$DOTFILES/.local"
 fi

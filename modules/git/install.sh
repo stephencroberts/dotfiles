@@ -3,6 +3,7 @@
 if [ "$1" = macos ]; then
   brew_install git
   brew_install git-delta
+  brew_install lazygit
 elif [ "$1" = alpine ]; then
   apk_add git
 elif [ "$1" = debian ]; then

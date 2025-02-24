@@ -1,6 +1,9 @@
 #!/bin/sh
 
-if [ "$1" = debian ]; then
+if [ "$1" = macos ]; then
+	brew_install shellcheck
+	brew_install shfmt
+elif [ "$1" = debian ]; then
 	snap_install shellcheck
 	snap_install shfmt
 else

@@ -5,4 +5,7 @@ type asdf >/dev/null || {
 	return 0
 }
 
-# TODO: install ruby
+asdf plugin list | grep ruby >/dev/null ||
+	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf install ruby latest || true
+asdf set -u ruby latest

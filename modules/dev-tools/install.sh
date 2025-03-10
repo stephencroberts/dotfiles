@@ -32,7 +32,7 @@ if [ "$1" = debian ]; then
 	apt_install flex
 elif [ "$1" = macos ]; then
 	brew_install universal-ctags
-        brew_install watch
+	brew_install watch
 else
 	if ! type ctags >/dev/null && ctags --version | grep "Universal Ctags" /dev/null 2>&1; then
 		log_error "$1 is not supported!"
@@ -43,7 +43,7 @@ fi
 # Install GNU Global from source
 if ! type global >/dev/null; then
 	log_header "Installing GNU Global"
-	curl -fSs -o global.tar.gz https://ftp.gnu.org/pub/gnu/global/global-6.6.12.tar.gz
+	curl -fSs -o global.tar.gz https://ftp.gnu.org/pub/gnu/global/global-6.6.14.tar.gz
 	tar -zxf global.tar.gz
 	rm global.tar.gz
 	wd=$(pwd)

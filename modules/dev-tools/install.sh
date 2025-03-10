@@ -32,6 +32,7 @@ if [ "$1" = debian ]; then
 	apt_install flex
 elif [ "$1" = macos ]; then
 	brew_install universal-ctags
+        brew_install watch
 else
 	if ! type ctags >/dev/null && ctags --version | grep "Universal Ctags" /dev/null 2>&1; then
 		log_error "$1 is not supported!"

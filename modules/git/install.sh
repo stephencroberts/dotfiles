@@ -17,3 +17,4 @@ fi
 
 mkdir -p "$HOME/.git_template"
 link_file "$DOTFILES/modules/git/.gitconfig"
+link_file "$DOTFILES/modules/git/.gitignore_global"

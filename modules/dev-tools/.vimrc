@@ -1,11 +1,11 @@
 " vivify
 nmap <leader>mp :Vivify<CR>
-" TODO: need to automate vivify install
 
 " Use default mappings
 let GtagsCscope_Auto_Map = 1
 " Ignore case for tag search
 let GtagsCscope_Ignore_Case = 1
+let GtagsCscope_Auto_Load = 1
 " Use 'vim -t', ':tag' and '<C-]>'
 set cscopetag
 

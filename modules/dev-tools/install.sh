@@ -31,6 +31,7 @@ if [ "$1" = debian ]; then
 	apt_install bison
 	apt_install flex
 elif [ "$1" = macos ]; then
+	brew_install direnv
 	brew_install universal-ctags
 	brew_install watch
 else

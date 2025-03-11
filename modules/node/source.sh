@@ -20,7 +20,8 @@ npm() {
 			# Gather the production dependencies with a depth level of 1 to get a lot
 			# but not too many (hopefully!) to index; feed them to gtags
 			IFS=$'\n'
-			for f in $(npm ls --omit=dev --depth=1 --json | jq -r '[.. | .dependencies? // empty | keys] | add | join("\n")'); do
+			for f in $(npm ls --omit=dev --depth="${GTAGS_NPM_DEPTH:-0}" --json |
+				jq -r '[.. | .dependencies? // empty | keys] | add | join("\n")'); do
 				# Try to filter some of the garb; people are real dumb
 				find "$f" -path '*node_modules*' -prune \
 					-o -path '*dist*' -prune \

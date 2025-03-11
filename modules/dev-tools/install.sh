@@ -63,16 +63,6 @@ if ! type global >/dev/null; then
 	rm -rf global-*
 fi
 
-# Install git hooks
-# TODO: may need to make sure there are no collisions with other modules that
-# use git hooks, but there aren't any currently
-mkdir -p "$HOME/.git_template/hooks"
-link_file "$DOTFILES/modules/dev-tools/git/gtags" "$HOME/.git_template/hooks/gtags"
-link_file "$DOTFILES/modules/dev-tools/git/post-checkout" "$HOME/.git_template/hooks/post-checkout"
-link_file "$DOTFILES/modules/dev-tools/git/post-commit" "$HOME/.git_template/hooks/post-commit"
-link_file "$DOTFILES/modules/dev-tools/git/post-merge" "$HOME/.git_template/hooks/post-merge"
-link_file "$DOTFILES/modules/dev-tools/git/post-rewrite" "$HOME/.git_template/hooks/post-rewrite"
-
 ##########
 # Vivify #
 ##########

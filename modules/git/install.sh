@@ -15,6 +15,9 @@ else
 	}
 fi
 
-mkdir -p "$HOME/.git_template"
 link_file "$DOTFILES/modules/git/.gitconfig"
 link_file "$DOTFILES/modules/git/.gitignore_global"
+link_file "$DOTFILES/modules/git/hooks/post-checkout" "$HOME/.git_template/hooks/post-checkout"
+link_file "$DOTFILES/modules/git/hooks/post-commit" "$HOME/.git_template/hooks/post-commit"
+link_file "$DOTFILES/modules/git/hooks/post-merge" "$HOME/.git_template/hooks/post-merge"
+link_file "$DOTFILES/modules/git/hooks/post-rewrite" "$HOME/.git_template/hooks/post-rewrite"

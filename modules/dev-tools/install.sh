@@ -5,17 +5,9 @@ type asdf >/dev/null || {
 	return 0
 }
 
-########
-# just #
-########
-
 asdf plugin list | grep just >/dev/null || asdf plugin add just
 asdf install just latest || true
 asdf set -u just latest
-
-######################
-# GNU Global + ctags #
-######################
 
 if [ "$1" = debian ]; then
 	apt_install inotify-tools
@@ -32,6 +24,7 @@ if [ "$1" = debian ]; then
 	apt_install flex
 elif [ "$1" = macos ]; then
 	brew_install direnv
+	brew_install jannis-baum/tap/vivify
 	brew_install universal-ctags
 	brew_install watch
 else
@@ -40,6 +33,10 @@ else
 		return 0
 	fi
 fi
+
+######################
+# GNU Global + ctags #
+######################
 
 # Install GNU Global from source
 if ! type global >/dev/null; then
@@ -64,9 +61,8 @@ if ! type global >/dev/null; then
 fi
 
 ##########
-# Vivify #
+# direnv #
 ##########
 
-if [ "$1" = macos ]; then
-	brew_install jannis-baum/tap/vivify
-fi
+link_file "$DOTFILES/modules/dev-tools/direnv-dotfiles.sh" \
+	"$HOME/.config/direnv/lib/dotfiles.sh"

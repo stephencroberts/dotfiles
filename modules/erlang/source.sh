@@ -1,1 +1,1 @@
-export PATH="$HOME/.cache/rebar3/bin:$PATH"
+path_add "$HOME/.cache/rebar3/bin"

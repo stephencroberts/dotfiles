@@ -1,6 +1,6 @@
 # macos/homebrew
 if brew --prefix asdf >/dev/null 2>&1; then
-	export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+	path_add "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
 
 	if [ "$CURRENT_SHELL" = zsh ]; then
 		fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)

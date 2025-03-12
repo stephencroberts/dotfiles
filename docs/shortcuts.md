@@ -22,5 +22,3 @@ My handy shortcut reference because I have the memory of a goldfish
 - `fn + cmd - space`: rebalance the windows
 - `fn + cmd + ctrl - o`: rotate windows clockwise
 - `fn + cmd + alt - o`: rotate windows counterclockwise
-
-

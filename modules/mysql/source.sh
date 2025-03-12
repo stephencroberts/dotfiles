@@ -1,1 +1,1 @@
-export PATH="$(brew --prefix mysql-client)/bin:$PATH"
+path_add "$(brew --prefix mysql-client)/bin"

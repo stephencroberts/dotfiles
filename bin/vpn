@@ -2,10 +2,10 @@
 
 set -e
 
-: VPN_ACCOUNT=${VPN_ACCOUNT?}
-: VPN_VAULT=${VPN_VAULT?}
-: VPN_SECRET=${VPN_SECRET?}
-: VPN_ROUTES=${VPN_ROUTES:=$HOME/.vpn/routes}
+: "${VPN_ACCOUNT?}"
+: "${VPN_VAULT?}"
+: "${VPN_SECRET?}"
+: "${VPN_ROUTES:="$HOME/.vpn/routes"}"
 
 main() {
 	username=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/username")
@@ -16,7 +16,7 @@ main() {
 	oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')
 
 	if [ -e "$VPN_ROUTES" ]; then
-		routes=$(cat "$VPN_ROUTES" | xargs)
+		routes=$(xargs <"$VPN_ROUTES")
 	fi
 
 	[ -n "$routes" ] ||

@@ -7,20 +7,10 @@
 # Lots of junk goes in here.
 /backups/
 
+# Other stuff
 Brewfile
 *.zip
 /modules/fonts/*/
 FiraCodeiScript/
 _build/
-
-# GNU Global
-/GPATH
-/GRTAGS
-/GTAGS
-
-# ctags
-/.ctags.d
-/tags
-
-# Other module-specific stuff
-/modules/dev-tools/*.vim
+*.vim

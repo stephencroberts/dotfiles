@@ -37,3 +37,16 @@ backup_file() {
 	[ -e "$BACKUPS" ] || mkdir -p "$BACKUPS"
 	mv "$1" "$BACKUPS"
 }
+
+#######################
+# Adds a path to PATH #
+#                     #
+# Arguments:          #
+#   - path            #
+#######################
+path_add() {
+	case ":$PATH:" in
+	*":$1:"*) ;;
+	*) export PATH="$1:$PATH" ;;
+	esac
+}

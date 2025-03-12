@@ -1,7 +1,6 @@
 # Ensure gcloud is in the PATH
-if [ -d /usr/local/google-cloud-sdk ] &&
-	! echo "$PATH" | grep '/usr/local/google-cloud-sdk/bin' >/dev/null 2>&1; then
-	export PATH="/usr/local/google-cloud-sdk/bin:$PATH"
+if [ -d /usr/local/google-cloud-sdk ]; then
+	path_add "/usr/local/google-cloud-sdk/bin"
 fi
 
 ## Auto-completion

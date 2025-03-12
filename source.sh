@@ -1,8 +1,8 @@
 ## dotfiles
 
 export DOTFILES="$HOME/.dotfiles"
-echo "$PATH" | grep "$DOTFILES/bin" >/dev/null 2>&1 ||
-	export PATH="$DOTFILES/bin:$PATH"
+. "$DOTFILES/lib/utils.sh"
+path_add "$DOTFILES/bin"
 # shellcheck disable=SC2009
 CURRENT_SHELL=$(ps -p $$ -oargs= | tr -d - | awk '{print $1}') || {
 	echo "Failed to detect the current shell!" >&2

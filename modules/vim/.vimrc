@@ -34,6 +34,8 @@ syntax enable
 set background=dark
 colorscheme solarized
 highlight Normal ctermbg=16 guibg=#000000
+highlight TabHighlight ctermbg=16 guibg=#000000 ctermfg=235 guifg=#262626
+match TabHighlight /\t/
 
 " vim-airline
 if !exists('g:airline_symbols')

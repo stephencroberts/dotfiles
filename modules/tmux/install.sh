@@ -24,3 +24,5 @@ if [ -d "$HOME/.tmux/plugins/tpm/.git" ]; then
 else
 	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
+
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"

@@ -13,22 +13,17 @@ endfor
 
 Plug 'altercation/vim-colors-solarized'
 Plug 'dense-analysis/ale'
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'yuezk/vim-js'
-Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 let mapleader=','
-
 
 """""""""""
 " Plugins "
@@ -60,28 +55,9 @@ let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = {}
 
-" vim-gitgutter
-nmap <leader>g :GitGutterToggle<CR>
-
-let g:ale_erlang_erlfmt_executable = 'erlfmt'
-let g:ale_erlang_erlfmt_options = '-'
-
 " ale
-let g:ale_fixers = {
-\  'css': ['prettier'],
-\  'erlang': ['erlfmt'],
-\  'javascript': ['prettier'],
-\  'javascriptreact': ['prettier'],
-\  'typescript': ['prettier'],
-\  'typescriptreact': ['prettier'],
-\}
-let g:ale_linters = {
-\  'javascript': ['eslint'],
-\  'javascriptreact': ['eslint'],
-\  'typescript': ['eslint', 'tsserver'],
-\  'typescriptreact': ['eslint', 'tsserver'],
-\}
-
+let g:ale_fixers = {}
+let g:ale_linters = {}
 let g:ale_fix_on_save = 1
 
 """""""""""
@@ -139,24 +115,6 @@ function SetDefaultOptions()
   set textwidth=80
 endfunction
 autocmd Filetype * call SetDefaultOptions()
-
-function SetShellOptions()
-  set expandtab
-  set textwidth=80
-endfunction
-autocmd Filetype sh call SetShellOptions()
-
-function SetGoOptions()
-  set noexpandtab
-  set textwidth=100
-endfunction
-autocmd Filetype go call SetGoOptions()
-
-function SetMarkdownOptions()
-  set expandtab
-  set textwidth=80
-endfunction
-autocmd Filetype md call SetMarkdownOptions()
 
 " Easier splits
 nnoremap <C-\> :vsp<CR>

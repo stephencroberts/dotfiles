@@ -1,6 +1,12 @@
 " vivify
 nmap <leader>mp :Vivify<CR>
 
+function SetMarkdownOptions()
+  set expandtab
+  set textwidth=80
+endfunction
+autocmd Filetype md call SetMarkdownOptions()
+
 " Use default mappings
 let GtagsCscope_Auto_Map = 1
 " Ignore case for tag search

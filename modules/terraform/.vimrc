@@ -4,4 +4,4 @@ let g:NERDCustomDelimiters['terraform'] = {
 \  'rightAlt': '*/'
 \}
 
-let g:ale_fixers['terraform'] = ['terraform']
+let g:ale_fixers.terraform = ['terraform']

@@ -31,17 +31,29 @@ if [ "$1" = macos ]; then
 
 	link_file "$DOTFILES/modules/apps/.iterm2"
 elif [ "$1" = debian ]; then
-	# if ! type 1password >/dev/null; then
-	#   # sudo apt --fix-broken install?
-	#   apt_install gnupg2
-	#   curl -O https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb
-	#   $maybe_sudo dpkg -i 1password-latest.deb
-	#   rm 1password-latest.deb
-	# fi
+	# Syncthing
+	# https://apt.syncthing.net
+	if ! [ -f /etc/apt/keyrings/syncthing-archive-keyring.gpg ]; then
+		# Add the release PGP keys:
+		sudo mkdir -p /etc/apt/keyrings
+		sudo curl -L -o /etc/apt/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
 
+		# Add the "stable" channel to your APT sources:
+		echo "deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+		init_debian
+	fi
+
+	apt_install syncthing
+	# https://docs.syncthing.net/users/autostart.html#using-systemd
+	$maybe_sudo systemctl enable "syncthing@$USER.service"
+	$maybe_sudo systemctl start "syncthing@$USER.service"
+	# Make accessible
+	syncthing cli config gui raw-address set 0.0.0.0:8384
+
+	# Install 1password-cli
+	# https://developer.1password.com/docs/cli/get-started/
 	if ! type op >/dev/null; then
-		# Install 1password-cli
-		# https://developer.1password.com/docs/cli/get-started/
 		curl -sS https://downloads.1password.com/linux/keys/1password.asc |
 			$maybe_sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
 		echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" |

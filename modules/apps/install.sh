@@ -10,7 +10,7 @@ if [ "$1" = macos ]; then
 	brew_cask_install elgato-control-center
 	brew_cask_install microsoft-teams
 	brew_cask_install postman
-        brew_cask_install syncthing
+	brew_cask_install syncthing
 	brew_cask_install utm
 	brew_cask_install visual-studio-code
 
@@ -18,6 +18,7 @@ if [ "$1" = macos ]; then
 	mas list | grep "MeetingBar" >/dev/null || mas install 1532419400
 	mas list | grep "Microsoft Outlook" >/dev/null || mas install 985367838
 	mas list | grep "Slack" >/dev/null || mas install 803453959
+	mas list | grep "Toggl" >/dev/null || mas install 1291898086
 
 	if ! brew list --cask iterm2 >/dev/null; then
 		brew_cask_install iterm2

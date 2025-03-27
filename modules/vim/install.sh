@@ -3,7 +3,7 @@
 if [ "$1" = macos ]; then
 	brew_install vim
 elif [ "$1" = debian ]; then
-	apt_install vim-gtk
+	apt_install vim-nox
 elif [ "$1" = alpine ]; then
 	apk_add vim
 else

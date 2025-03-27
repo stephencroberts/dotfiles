@@ -112,11 +112,7 @@ endif
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR><S-n>
 vnoremap //r y/\V<C-R>=escape(@",'/\')<CR><CR><S-n>cgn
 
-function SetDefaultOptions()
-  set expandtab
-  set textwidth=80
-endfunction
-autocmd Filetype * call SetDefaultOptions()
+autocmd FileType * setlocal expandtab textwidth=80
 
 " Easier splits
 nnoremap <C-\> :vsp<CR>

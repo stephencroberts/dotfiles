@@ -5,6 +5,7 @@ Host *
 # When developing remotely, add a host entry to enable clipboard syncing:
 # Host thequeenspride
 #     HostName <remote ip>
+#     ForwardAgent yes
 #     ForwardX11 yes
 #     ForwardX11Trusted yes
 #     ServerAliveCountMax 3

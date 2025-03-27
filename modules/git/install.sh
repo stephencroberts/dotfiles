@@ -8,6 +8,7 @@ elif [ "$1" = alpine ]; then
 	apk_add git
 elif [ "$1" = debian ]; then
 	apt_install git
+	snap_install lazygit-gm
 else
 	type git >/dev/null || {
 		log_error "$1 is not supported!"

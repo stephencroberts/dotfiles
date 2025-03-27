@@ -17,18 +17,21 @@ if [ "$1" = debian ]; then
 
 	# Install GNU Global dependencies
 	# https://www.gnu.org/software/global/download.html
-	apt_install automake
 	apt_install autoconf
-	apt_install gperf
+	apt_install automake
 	apt_install bison
+	apt_install direnv
 	apt_install flex
+	apt_install gperf
+	apt_install libncurses5-dev
 elif [ "$1" = macos ]; then
 	brew_install direnv
 	brew_install jannis-baum/tap/vivify
 	brew_install universal-ctags
 	brew_install watch
 else
-	if ! type ctags >/dev/null && ctags --version | grep "Universal Ctags" /dev/null 2>&1; then
+	if ! type ctags >/dev/null && ctags --version |
+		grep "Universal Ctags" /dev/null 2>&1; then
 		log_error "$1 is not supported!"
 		return 0
 	fi
@@ -41,7 +44,8 @@ fi
 # Install GNU Global from source
 if ! type global >/dev/null; then
 	log_header "Installing GNU Global"
-	curl -fSs -o global.tar.gz https://ftp.gnu.org/pub/gnu/global/global-6.6.14.tar.gz
+	download_latest_from_ftp https://ftp.gnu.org/pub/gnu/global/ '[^"]*.gz' \
+		global.tar.gz
 	tar -zxf global.tar.gz
 	rm global.tar.gz
 	wd=$(pwd)

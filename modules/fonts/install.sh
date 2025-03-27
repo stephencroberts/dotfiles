@@ -6,7 +6,7 @@ fi
 
 if [ "$1" = macos ]; then
 	brew_cask_install font-fira-code
-	cp FiraCodeiScript/*.ttf $HOME/Library/Fonts
+	cp FiraCodeiScript/*.ttf "$HOME/Library/Fonts"
 else
 	log_error "$1 is not supported!"
 	return 0

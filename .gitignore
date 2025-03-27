@@ -10,6 +10,7 @@
 # Other stuff
 Brewfile
 *.zip
+/modules/asdf/bin
 /modules/fonts/*/
 FiraCodeiScript/
 _build/

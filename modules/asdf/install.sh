@@ -4,8 +4,8 @@ install_binary() {
 	type asdf >/dev/null || {
 		download_from_github asdf-vm/asdf "linux-amd64.*gz$" asdf.tar.gz
 		tar -zxf asdf.tar.gz
-		mkdir -p bin
-		mv asdf bin
+		mkdir -p "$DOTFILES/modules/asdf/bin"
+		mv asdf "$DOTFILES/modules/asdf/bin"
 		rm asdf.tar.gz
 	}
 }

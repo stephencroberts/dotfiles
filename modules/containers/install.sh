@@ -4,7 +4,11 @@ if [ "$1" = macos ]; then
 	brew_install colima
 	brew services start colima
 	brew_install docker
+	brew_install docker-buildx
 	brew_install docker-compose
+
+	mkdir -p "$HOME/.docker/cli-plugins"
+	ln -sf "$(which docker-buildx)" "$HOME/.docker/cli-plugins/docker-buildx"
 elif [ "$1" = debian ]; then
 	# https://docs.docker.com/engine/install/ubuntu/
 	for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
@@ -34,6 +38,7 @@ elif [ "$1" = debian ]; then
 	groups "$USER" | grep docker 2>&1 >/dev/null ||
 		$maybe_sudo usermod -aG docker "$USER"
 
+	apt_install docker-buildx-plugin
 	apt_install docker-compose-plugin
 else
 	type docker >/dev/null || {

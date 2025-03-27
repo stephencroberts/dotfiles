@@ -25,13 +25,18 @@ This uses pathspec with `git ls-files`, for example: `git ls-files -- .
 It's recommended to set the environment variable in the `.envrc` file in the
 project.
 
+### Libs
+
+`gtags` can be configured to load multiple databases by searching
+`GTAGSLIBPATH`. `direnv-dotfiles.sh` is configured to search for nested `GTAGS`
+files in the project with a default max search depth of 5 which can be
+configured by setting `GTAGS_MAX_DEPTH` per-project.
+
 ### Integrations
 
-The integration between gtags and direnv works by having modules specify a
-direnv script to run that should export `GTAGSLIBPATH` with a path(s) to another
-gtags database. It can work in conjunction with other ways of generating those
-databases, for instance when `npm install` is executed to generate a database
-for `node_modules`.
+Nested libs work in conjunction with other ways of generating those databases,
+for instance when `npm install` is executed to generate a database for
+`node_modules`.
 
 ## Direnv
 

@@ -50,3 +50,24 @@ path_add() {
 	*) export PATH="$1:$PATH" ;;
 	esac
 }
+
+###########################################################
+# Downloads the latest release of an artifact from GitHub #
+#                                                         #
+# Arguments:                                              #
+#   - repo (e.g. asdf-vm/asdf)                            #
+#   - regex pattern for artifact name                     #
+#   - downloaded artifact name                            #
+###########################################################
+download_from_github() {
+        curl --silent --show-error --fail-with-body --location \
+                --output "$3" \
+                "$(curl --silent --show-error --fail-with-body --location \
+                        "https://api.github.com/repos/$1/releases/latest" |
+                        jq -r '.assets
+                                | map(
+                                                select(.browser_download_url | test("'"$2"'"))
+                                        )
+                                | first
+                                | .browser_download_url')"
+}

@@ -1,30 +1,10 @@
-# macos/homebrew
-if brew --prefix asdf >/dev/null 2>&1; then
-	path_add "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
+path_add "$DOTFILES/modules/asdf/bin"
+path_add "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
 
-	if [ "$CURRENT_SHELL" = zsh ]; then
-		fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-		autoload -Uz compinit && compinit
-	fi
-
-# Non-homebrew, probably in the HOME directory
-elif [ -e "$HOME/.asdf" ]; then
-
-	# Load asdf
-	if [ "$CURRENT_SHELL" = bash ] || [ "$CURRENT_SHELL" = zsh ]; then
-		# shellcheck disable=SC1091
-		. "$HOME/.asdf/asdf.sh"
-	else
-		echo "Shell not supported for asdf!" >&2
-	fi
-
-	# Load bash completions if using bash
-	if [ "$CURRENT_SHELL" = bash ]; then
-		# shellcheck disable=SC1091
-		. "$HOME/.asdf/completions/asdf.bash"
-	fi
-
-# Did you install asdf correctly??
-else
-	echo "Failed to find asdf!" >&2
+if [ "$CURRENT_SHELL" = zsh ]; then
+	FPATH="${ASDF_DATA_DIR:-$HOME/.asdf}/completions:$FPATH"
+	autoload -Uz compinit && compinit
+elif [ "$CURRENT_SHELL" = bash ]; then
+	# shellcheck disable=SC1090
+	eval "$(asdf completion bash)"
 fi

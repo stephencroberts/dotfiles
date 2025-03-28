@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "git ls-files -- . $GTAGS_EXCLUDE | gtags --verbose --accept-dotfiles --file -"
+# shellcheck disable=SC2086
+git ls-files -- . $GTAGS_EXCLUDE | gtags --verbose --accept-dotfiles --file -

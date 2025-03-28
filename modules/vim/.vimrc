@@ -45,7 +45,7 @@ let g:airline_symbols.colnr = ' ㏇:'
 let g:airline_symbols.colnr = ' ℅:'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_powerline_fonts = 1
-let g:airline_theme='papercolor'
+let g:airline_theme='angr'
 
 set statusline+=%#warningmsg#
 set statusline+=%*

@@ -14,13 +14,12 @@ else
 fi
 
 link_file "$DOTFILES/modules/tmux/.tmux.conf"
-link_file "$DOTFILES/modules/tmux/.tmuxline.conf"
 
 if [ -d "$HOME/.tmux/plugins/tpm/.git" ]; then
 	wd=$PWD
-	cd "$HOME/.tmux/plugins/tpm"
+	cd "$HOME/.tmux/plugins/tpm" || return
 	git pull
-	cd "$wd"
+	cd "$wd" || return
 else
 	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi

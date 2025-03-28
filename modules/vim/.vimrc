@@ -33,8 +33,14 @@ let mapleader=','
 syntax enable
 set background=dark
 colorscheme solarized
+" Set the background to black
 highlight Normal ctermbg=16 guibg=#000000
+" Set tab background to black with a very subtle color
 highlight TabHighlight ctermbg=16 guibg=#000000 ctermfg=235 guifg=#262626
+" Set both the sign column and line number column to black with faded blue
+" numbers
+highlight SignColumn ctermbg=16 guibg=#000000
+highlight LineNr ctermbg=16 guibg=#000000 ctermfg=60 guifg=#5F5F87
 match TabHighlight /\t/
 
 " vim-airline

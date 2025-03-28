@@ -2,6 +2,8 @@
 
 if [ "$1" = macos ]; then
 	brew_install autossh
+	# Install X11 for clipboard syncing with remote hosts
+	brew_cask_install xquartz
 elif [ "$1" = debian ]; then
 	apt_install libpam-ssh-agent-auth
 	if [ ! -e /etc/sudoers.d/pam-ssh-agent-auth ]; then

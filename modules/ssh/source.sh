@@ -3,4 +3,4 @@
 # set by gpg
 #
 # shellcheck disable=SC2139
-alias sudo="SSH_AUTH_SOCK=$SSH_AUTH_SOCK sudo"
+alias sudo="SSH_AUTH_SOCK=$ORIGINAL_SSH_AUTH_SOCK sudo"

@@ -15,8 +15,8 @@ libs=$(
 	find . -mindepth 2 -maxdepth "${GTAGS_MAX_DEPTH:-5}" \
 		-name GTAGS \
 		-print0 |
-		xargs -0 realpath |
-		xargs dirname |
+		xargs -r -0 realpath |
+		xargs -r dirname |
 		tr '\n' ':'
 )
 libs="${libs%:}"

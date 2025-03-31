@@ -2,13 +2,20 @@
 
 if [ "$1" = macos ]; then
 	brew_install colima
-	brew services start colima
+	brew services restart colima
 	brew_install docker
 	brew_install docker-buildx
 	brew_install docker-compose
 
 	mkdir -p "$HOME/.docker/cli-plugins"
 	ln -sf "$(which docker-buildx)" "$HOME/.docker/cli-plugins/docker-buildx"
+
+	# Add ssh integration to local config to avoid having it committed since the
+	# module may not be installed
+	if ! grep '.colima/ssh_config' <"$HOME/.ssh/config" 2>&1 >/dev/null; then
+		printf -- "\nInclude /Users/%s/.colima/ssh_config\n" \
+			"$USER" >>"$HOME/.ssh/config.local"
+	fi
 elif [ "$1" = debian ]; then
 	# https://docs.docker.com/engine/install/ubuntu/
 	for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do

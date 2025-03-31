@@ -13,7 +13,16 @@ main() {
 	authgroup=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/authgroup")
 	website=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/website")
 	otp=$(op --account "$VPN_ACCOUNT" item get "$VPN_SECRET" --otp --vault "$VPN_VAULT")
-	oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')
+
+	oc_dir=/usr
+	if type brew >/dev/null; then
+		oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')
+	fi
+
+	vpn_slice=vpn-slice
+	if [ -f /opt/venv/bin/vpn-slice ]; then
+		vpn_slice=/opt/venv/bin/vpn-slice
+	fi
 
 	if [ -e "$VPN_ROUTES" ]; then
 		routes=$(xargs <"$VPN_ROUTES")
@@ -26,11 +35,9 @@ main() {
 		sudo openconnect \
 			--user="$username" \
 			--authgroup="$authgroup" \
-			--script="vpn-slice $routes" \
+			--script="$vpn_slice $routes" \
 			--csd-user="$USER" \
-			--csd-wrapper=/usr/libexec/openconnect/csd-post.sh \
 			--csd-wrapper="$oc_dir/libexec/openconnect/csd-post.sh" \
-			--os=mac-intel \
 			--non-inter \
 			--passwd-on-stdin \
 			"$@" \

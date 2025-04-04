@@ -26,7 +26,8 @@ if [ "$1" = macos ]; then
 elif [ "$1" = debian ]; then
 	apt_install openconnect
 	apt_install python3-full
-	sudo pip3 install "vpn-slice[dnspython,setproctitle]"
+	sudo python3 -m venv /opt/venv
+	sudo /opt/venv/bin/pip install "vpn-slice[dnspython,setproctitle]"
 else
 	type openconnect >/dev/null || {
 		log_error "$1 is not supported!"

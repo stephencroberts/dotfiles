@@ -19,11 +19,18 @@ ${(e)$(prompt_paradox_build_prompt)} '
 # Remove user@host from prompt
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   function prompt_paradox_build_prompt {
+    prompt_color=blue
+    git_color=green
+    if [ -n "$SSH_CLIENT" ]; then
+      prompt_color=103
+      git_color=253
+    fi
+
     prompt_paradox_start_segment black default '%(?::%F{red}✘ )%(!:%F{yellow}⚡ :)%(1j:%F{cyan}⚙ :)'
-    prompt_paradox_start_segment blue black '$_prompt_paradox_pwd'
+    prompt_paradox_start_segment $prompt_color black '$_prompt_paradox_pwd'
 
     if [[ -n "$git_info" ]]; then
-      prompt_paradox_start_segment green black '${(e)git_info[ref]}${(e)git_info[status]}'
+      prompt_paradox_start_segment $git_color black '${(e)git_info[ref]}${(e)git_info[status]}'
     fi
 
     if [[ -n "$python_info" ]]; then

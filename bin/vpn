@@ -14,6 +14,8 @@ main() {
 	website=$(op --account "$VPN_ACCOUNT" read "op://$VPN_VAULT/$VPN_SECRET/website")
 	otp=$(op --account "$VPN_ACCOUNT" item get "$VPN_SECRET" --otp --vault "$VPN_VAULT")
 
+	echo "Connecting to $website as $username"
+
 	oc_dir=/usr
 	if type brew >/dev/null; then
 		oc_dir=$(brew --cellar openconnect)/$(brew list --versions openconnect | awk '{print $2}')

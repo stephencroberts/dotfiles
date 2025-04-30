@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+	cat <<EOF
+Usage: $(basename "$0") <name> <new name> [search path=.] [...find args]
+Find and rename files
+EOF
+	exit
+fi
+
+main() {
+	p=${3:-.}
+	n=$1
+	r=$2
+	shift 3
+
+	find "$p" -name "$n" "$@" |
+		while read -r f; do
+			mv "$f" "$(dirname "$f")/$r"
+		done
+}
+
+main "$@"

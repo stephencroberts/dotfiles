@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+	cat <<EOF
+Usage: $(basename "$0") <pattern> <replacement> [search path=.] [...rg args]
+Find and replace in-file
+EOF
+	exit
+fi
+
+main() {
+	p=$1
+	r=$2
+	d=${3:-.}
+	shift 3
+	rg -l "$@" "$p" "$d" |
+		while read -r f; do
+			sed -i '' 's/'"$p"'/'"$r"'/g' "$f"
+		done
+}
+
+main "$@"

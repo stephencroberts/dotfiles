@@ -164,8 +164,10 @@ function! BlockComment()
   let [line_start, column_start] = getpos("'<")[1:2]
   let [line_end, column_end] = getpos("'>")[1:2]
   let lines = getline(line_start, line_end)
+  let num_lines = line_end - line_start
 
-  " Check if exiting block comment exists and strip it away
+  " Strip block comment beginning line either on the selected line or the line
+  " before
   if getline(line_start-1) =~ '^#\+$'
     exe line_start-1 . "d"
     let line_start -= 1
@@ -177,6 +179,7 @@ function! BlockComment()
     let line_end -= 1
   endif
 
+  " Check if any line does not start with a block comment
   let is_block = 1
   for line in lines
     if ! line =~ '^#'
@@ -185,6 +188,8 @@ function! BlockComment()
     endif
   endfor
 
+  " Skip stripping the leading comment characters if it's not already a block
+  " comment
   let i = 0
   if is_block == 1
     for line in lines
@@ -195,15 +200,61 @@ function! BlockComment()
     endfor
   endif
 
+  " Strip block comment ending line either on the selected line or on the line
+  " after
   if getline(line_end) =~ '^#\+$'
     exe line_end . "d"
     call remove(lines, len(lines) - 1)
     let line_end -= 1
   endif
-
   if getline(line_end+1) =~ '^#\+$'
     exe line_end+1 . "d"
   endif
+
+  " Add any additional lines after the current modifications before writing back
+  " to the buffer
+  let num_new_lines = line_end - line_start - num_lines
+  if num_new_lines > 0
+    call append(line_end, repeat([""], num_new_lines))
+  endif
+
+  "
+  " Write the lines back into the buffer
+  "
+
+  let i = line_start
+  for line in lines
+    call setline(i, line)
+    let i += 1
+  endfor
+
+  " Add a stop mark for the block
+  call append(i-1, "__END BLOCK COMMENT__")
+
+  " Temporarily change textwidth and reformat lines with gq to leave room for
+  " the extra chars at the end of lines
+  let tw = &textwidth
+  let &textwidth = tw - 4
+  exe line_start
+  normal! V
+  exe "normal! " . (line_end - line_start) . "j"
+  normal! gq
+  let &textwidth = tw
+
+  " Scan for end mark (we don't know how many lines were added due to wrapping)
+  for num in range(line_start, line('$'))
+    if getline(num) == '__END BLOCK COMMENT__'
+      let line_end = num
+      break
+    endif
+  endfor
+
+  " Delete end mark
+  exe line_end . "d"
+  let line_end -= 1
+
+  " Read lines back into var
+  let lines = getline(line_start, line_end)
 
   " Calculate the max line length to know how much padding to add
   let max_len = 0

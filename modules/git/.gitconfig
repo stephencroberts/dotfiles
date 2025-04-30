@@ -49,6 +49,6 @@
 [user]
   name = Stephen Roberts
   email = stephenroberts@gmail.com
-  signingkey = 6C54D1B0748B0FBA!
+  signingkey = DA03E396CDA8A1C1!
 [include]
   path = .gitconfig.local

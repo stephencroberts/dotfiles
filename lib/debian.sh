@@ -31,3 +31,7 @@ init_debian() {
 	apt_install snapd
 	apt_install xclip
 }
+
+post_install_debian() {
+	:
+}

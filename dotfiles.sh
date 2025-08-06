@@ -299,6 +299,9 @@ main() {
 
 	install_things "$os"
 
+	# Run post-install hook
+	[ -n "$os" ] && "post_install_$os"
+
 	# Alert if backups were made.
 	if [ -e "$BACKUPS" ]; then
 		printf -- "\\nBackups were moved to ~/%s\\n" "${BACKUPS#"$HOME"/}"

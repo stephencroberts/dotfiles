@@ -1,5 +1,5 @@
 # Wrapper for npm that generates gtags in the node_modules directory
-# Works in conjunction with direnv (./direnv.sh) to load the library
+# Works in conjunction with mise to load the library
 npm() {
 	command npm "$@"
 
@@ -13,13 +13,14 @@ npm() {
 			set --
 			wd=$(pwd)
 			# Go into the node_modules directory
-			cd "$(npm root)" || return
+			cd "$(npm root)" || return 0
 
 			echo "Generating gtags in $PWD"
 
 			# Gather the production dependencies with a depth level of 1 to get a lot
 			# but not too many (hopefully!) to index; feed them to gtags
-			IFS=$'\n'
+			IFS='
+'
 			for f in $(npm ls --omit=dev --depth="${GTAGS_NPM_DEPTH:-0}" --json |
 				jq -r '[.. | .dependencies? // empty | keys] | add | join("\n")'); do
 				# Try to filter some of the garb; people are real dumb

@@ -1,14 +1,7 @@
 #!/bin/sh
 
-type asdf >/dev/null || {
-	log_error "Please install the asdf module!"
-	return 0
-}
+mise use --global rust@latest
 
-asdf plugin list | grep rust >/dev/null || asdf plugin add rust
-asdf install rust latest || true
-asdf set -u rust latest
-
-rustup component add clippy
-rustup component add rust-analyzer
-rustup component add rustfmt
+mise exec rust@latest -- rustup component add clippy
+mise exec rust@latest -- rustup component add rust-analyzer
+mise exec rust@latest -- rustup component add rustfmt

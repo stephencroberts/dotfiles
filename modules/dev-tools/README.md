@@ -6,7 +6,7 @@ GNU Global uses Universal Ctags as the engine and the native vim integration
 with gtags and cscope. The design includes the following features:
 
 - git hooks to automatically generate gtags
-- integration with direnv to allow other plugins to specify gtag database search
+- integration with mise to allow other plugins to specify gtag database search
   paths (see node and ruby modules)
 - ability to ignore patterns
 
@@ -28,7 +28,7 @@ project.
 ### Libs
 
 `gtags` can be configured to load multiple databases by searching
-`GTAGSLIBPATH`. `direnv-dotfiles.sh` is configured to search for nested `GTAGS`
+`GTAGSLIBPATH`. `mise-dotfiles.sh` is configured to search for nested `GTAGS`
 files in the project with a default max search depth of 5 which can be
 configured by setting `GTAGS_MAX_DEPTH` per-project.
 
@@ -37,9 +37,3 @@ configured by setting `GTAGS_MAX_DEPTH` per-project.
 Nested libs work in conjunction with other ways of generating those databases,
 for instance when `npm install` is executed to generate a database for
 `node_modules`.
-
-## Direnv
-
-Any time a project is cloned, a `.envrc` file is created in the project to
-effectively enable direnv which will run the dir lib scripts that are used for
-the integrations.

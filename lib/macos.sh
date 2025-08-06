@@ -26,6 +26,8 @@ init_macos() {
 	log_header "Installing essentials"
 	brew_install jq
 
+	brew_install mise
+
 	# Enable touch/watch id for sudo
 	# https://sixcolors.com/post/2023/08/in-macos-sonoma-touch-id-for-sudo-can-survive-updates/
 	# https://andre.arko.net/2020/07/10/sudo-with-touchid-and-apple-watch-even-inside-tmux/
@@ -60,4 +62,8 @@ brew_cask_install() {
 		log_header "Installing $1"
 		brew install --cask "$1"
 	}
+}
+
+post_install_macos() {
+	mise prune
 }

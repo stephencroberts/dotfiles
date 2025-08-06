@@ -15,3 +15,7 @@ apk_add() {
 		apk add "$1"
 	}
 }
+
+post_install_alpine() {
+	:
+}

@@ -1,14 +1,5 @@
 #!/bin/sh
 
-type asdf >/dev/null || {
-	log_error "Please install the asdf module!"
-	return 0
-}
-
-asdf plugin list | grep just >/dev/null || asdf plugin add just
-asdf install just latest || true
-asdf set -u just latest
-
 if [ "$1" = debian ]; then
 	apt_install inotify-tools
 
@@ -20,12 +11,10 @@ if [ "$1" = debian ]; then
 	apt_install autoconf
 	apt_install automake
 	apt_install bison
-	apt_install direnv
 	apt_install flex
 	apt_install gperf
 	apt_install libncurses5-dev
 elif [ "$1" = macos ]; then
-	brew_install direnv
 	brew_install jannis-baum/tap/vivify
 	brew_install universal-ctags
 	brew_install watch
@@ -64,9 +53,14 @@ if ! type global >/dev/null; then
 	rm -rf global-*
 fi
 
-##########
-# direnv #
-##########
+#
+# Mise
+#
 
-link_file "$DOTFILES/modules/dev-tools/direnv-dotfiles.sh" \
-	"$HOME/.config/direnv/lib/dotfiles.sh"
+mise config set -f "$HOME/.config/mise/config.toml" \
+        env.PROJECT_DIR \
+        "{{ cwd }}"
+
+mise config set -f "$HOME/.config/mise/config.toml" \
+        env._.source \
+        "$DOTFILES/modules/dev-tools/mise-dotfiles.sh"

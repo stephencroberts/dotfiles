@@ -1,5 +1,5 @@
 # Wrapper for bundle that generates gtags in the gems directory
-# Works in conjunction with direnv (./direnv.sh) to load the library
+# Works in conjunction with mise to load the library
 bundle() {
 	command bundle "$@"
 

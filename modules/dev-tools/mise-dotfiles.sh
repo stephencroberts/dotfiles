@@ -3,7 +3,7 @@
 : "${PROJECT_DIR?}"
 : "${GTAGS_MAX_DEPTH:=5}"
 
-# Source each installed module that has git hooks
+# Source each installed module that has mise scripts
 # shellcheck disable=SC2013
 for module in $(cat "$DOTFILES/.selected"); do
 	file="$DOTFILES/modules/$module/mise.sh"
@@ -16,7 +16,8 @@ done
 # Try to find the root of the git repo to start searching for GTAGS with the
 # configured max depth, but fallback to the current directory and only search
 # that directory to avoid deep searching arbitrary directories
-if project_dir=$(cd "$PROJECT_DIR" && git rev-parse --show-toplevel); then
+if project_dir=$(cd "$PROJECT_DIR" &&
+	git rev-parse --show-toplevel 2>/dev/null); then
 	max_depth="$GTAGS_MAX_DEPTH"
 else
 	project_dir="$PROJECT_DIR"

@@ -13,3 +13,5 @@ fi
 
 mise use --global python@latest
 mise use --global ruff@latest
+
+brew install pyright

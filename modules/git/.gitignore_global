@@ -3,3 +3,4 @@ GRTAGS
 GTAGS
 .envrc
 mise.toml
+pants.local.toml

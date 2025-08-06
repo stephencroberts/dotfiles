@@ -3,6 +3,7 @@
 if [ "$1" = macos ]; then
 	brew_install git
 	brew_install git-delta
+        brew_install git-lfs
 	brew_install lazygit
 elif [ "$1" = alpine ]; then
 	apk_add git
@@ -22,3 +23,4 @@ link_file "$DOTFILES/modules/git/hooks/post-checkout" "$HOME/.git_template/hooks
 link_file "$DOTFILES/modules/git/hooks/post-commit" "$HOME/.git_template/hooks/post-commit"
 link_file "$DOTFILES/modules/git/hooks/post-merge" "$HOME/.git_template/hooks/post-merge"
 link_file "$DOTFILES/modules/git/hooks/post-rewrite" "$HOME/.git_template/hooks/post-rewrite"
+link_file "$DOTFILES/modules/git/hooks/pre-push" "$HOME/.git_template/hooks/pre-push"

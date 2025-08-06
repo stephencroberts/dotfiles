@@ -52,3 +52,8 @@
   signingkey = DA03E396CDA8A1C1!
 [include]
   path = .gitconfig.local
+[filter "lfs"]
+        process = git-lfs filter-process
+        required = true
+        clean = git-lfs clean -- %f
+        smudge = git-lfs smudge -- %f

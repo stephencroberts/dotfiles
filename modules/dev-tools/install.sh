@@ -53,14 +53,16 @@ if ! type global >/dev/null; then
 	rm -rf global-*
 fi
 
+link_file "$DOTFILES/modules/dev-tools/.globalrc"
+
 #
 # Mise
 #
 
 mise config set -f "$HOME/.config/mise/config.toml" \
-        env.PROJECT_DIR \
-        "{{ cwd }}"
+	env.PROJECT_DIR \
+	"{{ cwd }}"
 
 mise config set -f "$HOME/.config/mise/config.toml" \
-        env._.source \
-        "$DOTFILES/modules/dev-tools/mise-dotfiles.sh"
+	env._.source \
+	"$DOTFILES/modules/dev-tools/mise-dotfiles.sh"

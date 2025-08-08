@@ -2,5 +2,7 @@ GPATH
 GRTAGS
 GTAGS
 .envrc
+mise.*.local.toml
+mise.local.toml
 mise.toml
 pants.local.toml

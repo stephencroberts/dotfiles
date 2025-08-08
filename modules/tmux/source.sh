@@ -1,3 +1,5 @@
+#!/bin/sh
+
 tmux_new_session() {
 	tmux new-session -s "$1"
 }

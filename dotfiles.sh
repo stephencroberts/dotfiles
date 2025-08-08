@@ -77,7 +77,7 @@ install_git() {
 			$maybe_sudo apt-get -qq install git-core
 		elif [ "$1" = macos ]; then
 			printf -- "Waiting for git to be installed. Press ENTER to continue."
-			read -r
+			read -r _
 		fi
 	}
 
@@ -245,7 +245,7 @@ install_things() {
 	for option in $prompt_selections; do
 		log_header "Installing $option"
 		# shellcheck disable=SC1090
-		. "$DOTFILES/modules/$option/install.sh" "$1" "$2"
+		OS_NAME="$1" . "$DOTFILES/modules/$option/install.sh"
 	done
 }
 

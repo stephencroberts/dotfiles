@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	if ! brew list fzf >/dev/null; then
 		brew_install fzf
 		"$(brew --prefix)/opt/fzf/install"
 	fi
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add fzf
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	if ! type fzf >/dev/null; then
 		# Try installing with apt with fallback to git
 		apt_install fzf || {
@@ -18,7 +18,7 @@ elif [ "$1" = debian ]; then
 	fi
 else
 	type fzf >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

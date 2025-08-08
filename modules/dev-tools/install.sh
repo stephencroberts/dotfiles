@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = debian ]; then
+if [ "$OS_NAME" = debian ]; then
 	apt_install inotify-tools
 
 	# Use ctags as backend for global
@@ -14,14 +14,14 @@ if [ "$1" = debian ]; then
 	apt_install flex
 	apt_install gperf
 	apt_install libncurses5-dev
-elif [ "$1" = macos ]; then
+elif [ "$OS_NAME" = macos ]; then
 	brew_install jannis-baum/tap/vivify
 	brew_install universal-ctags
 	brew_install watch
 else
 	if ! type ctags >/dev/null && ctags --version |
 		grep "Universal Ctags" /dev/null 2>&1; then
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	fi
 fi

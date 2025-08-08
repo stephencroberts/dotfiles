@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install gcc
 	brew_install icu4c
 	brew_install ossp-uuid

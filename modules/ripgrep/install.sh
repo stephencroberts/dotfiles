@@ -1,10 +1,10 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install ripgrep
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add ripgrep
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	if ! type ripgrep >/dev/null; then
 		# Try installing with apt with fallback to git
 		apt_install ripgrep || {
@@ -14,7 +14,7 @@ elif [ "$1" = debian ]; then
 	fi
 else
 	type rg >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

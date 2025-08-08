@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install colima
 	brew services restart colima
 	brew_install docker
@@ -16,7 +16,7 @@ if [ "$1" = macos ]; then
 		printf -- "\nInclude /Users/%s/.colima/ssh_config\n" \
 			"$USER" >>"$HOME/.ssh/config.local"
 	fi
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	# https://docs.docker.com/engine/install/ubuntu/
 	for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do
 		apt_remove "$pkg"
@@ -25,11 +25,13 @@ elif [ "$1" = debian ]; then
 	if [ ! -e /etc/apt/keyrings/docker.asc ]; then
 		# Add Docker's official GPG key:
 		apt_install ca-certificates
+		# shellcheck disable=SC2154
 		$maybe_sudo install -m 0755 -d /etc/apt/keyrings
 		$maybe_sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 		$maybe_sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 		# Add the repository to Apt sources:
+		# shellcheck disable=SC1091
 		echo \
 			"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
@@ -41,15 +43,15 @@ elif [ "$1" = debian ]; then
 		apt_install "$pkg"
 	done
 
-	getent group | grep "^docker:" 2>&1 >/dev/null || $maybe_sudo groupadd docker
-	groups "$USER" | grep docker 2>&1 >/dev/null ||
+	getent group | grep "^docker:" >/dev/null 2>&1 || $maybe_sudo groupadd docker
+	groups "$USER" | grep docker >/dev/null 2>&1 ||
 		$maybe_sudo usermod -aG docker "$USER"
 
 	apt_install docker-buildx-plugin
 	apt_install docker-compose-plugin
 else
 	type docker >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

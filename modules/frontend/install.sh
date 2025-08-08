@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install tidy-html5
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add tidyhtml
 else
 	type tidy >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 alias g='git'
 alias ga='g add'
 alias gap='g add -p'

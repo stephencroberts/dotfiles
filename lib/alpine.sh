@@ -1,3 +1,5 @@
+#!/bin/sh
+
 init_alpine() {
 	log_header "Updating apk"
 	apk update

@@ -1,14 +1,14 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install vim
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	apt_install vim-gtk3
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add vim
 else
 	type vim >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

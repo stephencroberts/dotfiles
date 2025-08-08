@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = alpine ]; then
+if [ "$OS_NAME" = alpine ]; then
 	apk_add gpg
 	apk_add gpg-agent
 fi

@@ -11,7 +11,7 @@ if type op >/dev/null; then
 	fi
 fi
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	sudo softwareupdate --install-rosetta
 	brew_install aws-vpn-client
 fi

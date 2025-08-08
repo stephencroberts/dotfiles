@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Wrapper for npm that generates gtags in the node_modules directory
 # Works in conjunction with mise to load the library
 npm() {

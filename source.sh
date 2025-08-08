@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ## dotfiles
 
 export DOTFILES="$HOME/.dotfiles"
@@ -56,7 +58,7 @@ for module in $(cat "$DOTFILES/.selected"); do
 done
 
 # Source stuff for just this machine
-if [ -e "$DOTFILES/.local" ]; then
-	# shellcheck disable=SC1090
+if [ -f "$DOTFILES/.local" ]; then
+	# shellcheck disable=SC1091
 	. "$DOTFILES/.local"
 fi

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if type gpg-agent >/dev/null && type gpgconf >/dev/null; then
 	GPG_TTY=$(tty)
 	export GPG_TTY

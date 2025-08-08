@@ -1,13 +1,14 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install autossh
 	# Install X11 for clipboard syncing with remote hosts
 	brew_cask_install xquartz
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	apt_install libpam-ssh-agent-auth
 	if [ ! -e /etc/sudoers.d/pam-ssh-agent-auth ]; then
 		echo 'Defaults    env_keep += "SSH_AUTH_SOCK"' >pam-ssh-agent-auth
+		# shellcheck disable=SC2154
 		$maybe_sudo chmod 440 pam-ssh-agent-auth
 		$maybe_sudo chown root:root pam-ssh-agent-auth
 		$maybe_sudo mv pam-ssh-agent-auth /etc/sudoers.d/

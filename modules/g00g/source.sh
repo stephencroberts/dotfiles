@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Ensure gcloud is in the PATH
 if [ -d /usr/local/google-cloud-sdk ]; then
 	path_add "/usr/local/google-cloud-sdk/bin"

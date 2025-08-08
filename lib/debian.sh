@@ -1,6 +1,9 @@
+#!/bin/sh
+
 apt_install() {
 	type "$1" >/dev/null || {
 		log_header "Installing $1"
+		# shellcheck disable=SC2154
 		$maybe_sudo apt-get -qq install "$1"
 	}
 }

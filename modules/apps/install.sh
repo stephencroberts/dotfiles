@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install 1password
 	brew_install 1password-cli
 	# mas is a cli for the App Store
@@ -24,6 +24,7 @@ if [ "$1" = macos ]; then
 		brew_cask_install iterm2
 
 		# Specify the preferences directory
+		# shellcheck disable=SC2088
 		defaults write com.googlecode.iterm2.plist PrefsCustomFolder \
 			-string "~/.iterm2"
 		# Tell iTerm2 to use the custom preferences in the directory
@@ -32,7 +33,7 @@ if [ "$1" = macos ]; then
 	fi
 
 	link_file "$DOTFILES/modules/apps/.iterm2"
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	# Syncthing
 	# https://apt.syncthing.net
 	if ! [ -f /etc/apt/keyrings/syncthing-archive-keyring.gpg ]; then
@@ -48,6 +49,7 @@ elif [ "$1" = debian ]; then
 
 	apt_install syncthing
 	# https://docs.syncthing.net/users/autostart.html#using-systemd
+	# shellcheck disable=SC2154
 	$maybe_sudo systemctl enable "syncthing@$USER.service"
 	$maybe_sudo systemctl start "syncthing@$USER.service"
 	# Make accessible
@@ -71,9 +73,9 @@ elif [ "$1" = debian ]; then
 
 		# Add account and login
 		op account add
-		eval $(op signin)
+		eval "$(op signin)"
 	fi
 else
-	log_error "$1 is not supported!"
+	log_error "$OS_NAME is not supported!"
 	return 0
 fi

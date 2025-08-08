@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install koekeishiya/formulae/yabai
 	yabai --start-service
 	brew install koekeishiya/formulae/skhd
 	skhd --start-service
 else
 	type yabai >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

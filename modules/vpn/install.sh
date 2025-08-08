@@ -20,17 +20,17 @@ get_vpn_config() {
 	read -r secret
 }
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install openconnect
 	brew_install vpn-slice
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	apt_install openconnect
 	apt_install python3-full
 	sudo python3 -m venv /opt/venv
 	sudo /opt/venv/bin/pip install "vpn-slice[dnspython,setproctitle]"
 else
 	type openconnect >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

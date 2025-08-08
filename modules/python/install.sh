@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = debian ]; then
+if [ "$OS_NAME" = debian ]; then
 	apt_install libbz2-dev
 	apt_install libffi-dev
 	apt_install liblzma-dev

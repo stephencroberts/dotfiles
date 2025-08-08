@@ -1,24 +1,24 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install gnupg
 	brew_install pinentry-mac
 	link_file "$DOTFILES/modules/gpg/gpg-agent.conf" \
 		"$HOME/.gnupg/gpg-agent.conf"
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add gpg
 	apk_add gpg-agent
 
 	# Fix agent graph
 	# https://github.com/NixOS/nixpkgs/issues/29331
 	mkdir -p "$HOME/.gnupg"
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	apt_install gpg
 	link_file "$DOTFILES/modules/gpg/gpg-agent.debian.conf" \
 		"$HOME/.gnupg/gpg-agent.conf"
 else
 	type gpg >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi
@@ -50,7 +50,7 @@ if [ "$(gpg --list-secret-keys | wc -l | xargs)" = 0 ]; then
 fi
 
 chmod 700 "$HOME/.gnupg"
-chmod 600 $HOME/.gnupg/*
+chmod 600 "$HOME/.gnupg"/*
 
 # (Re)Start the agent
 if type gpg-agent >/dev/null && type gpgconf >/dev/null; then

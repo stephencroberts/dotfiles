@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = alpine ]; then
+if [ "$OS_NAME" = alpine ]; then
 	# Required to build erlang
 	apk_add build-base
 	apk_add ncurses-dev

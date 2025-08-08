@@ -1,18 +1,18 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	brew_install git
 	brew_install git-delta
-        brew_install git-lfs
+	brew_install git-lfs
 	brew_install lazygit
-elif [ "$1" = alpine ]; then
+elif [ "$OS_NAME" = alpine ]; then
 	apk_add git
-elif [ "$1" = debian ]; then
+elif [ "$OS_NAME" = debian ]; then
 	apt_install git
 	snap_install lazygit-gm
 else
 	type git >/dev/null || {
-		log_error "$1 is not supported!"
+		log_error "$OS_NAME is not supported!"
 		return 0
 	}
 fi

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 export GTAGSLABEL=universal-ctags
 
 if [ "$CURRENT_SHELL" = zsh ]; then

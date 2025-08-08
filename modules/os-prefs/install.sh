@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$1" = macos ]; then
+if [ "$OS_NAME" = macos ]; then
 	# macOS Preferences
 	#
 	# Key/value pairs are in ~/Library/Preferences. Apple binary property lists
@@ -32,7 +32,7 @@ if [ "$1" = macos ]; then
         <key>file-data</key>
         <dict>
           <key>_CFURLString</key>
-          <string>file:///Users/'$USER'/Downloads/</string>
+          <string>file:///Users/'"$USER"'/Downloads/</string>
           <key>_CFURLStringType</key>
           <integer>15</integer>
         </dict>
@@ -41,7 +41,7 @@ if [ "$1" = macos ]; then
         <key>file-label</key>
         <string>Downloads</string>
         <key>url</key>
-        <string>file:///Users/'$USER'/Downloads/</string>
+        <string>file:///Users/'"$USER"'/Downloads/</string>
       </dict>
       <key>tile-type</key>
       <string>directory-tile</string>
@@ -70,6 +70,6 @@ if [ "$1" = macos ]; then
 	# Speeds up the trackpad.
 	defaults write -g com.apple.trackpad.scaling -float 2
 else
-	log_error "$1 is not supported!"
+	log_error "$OS_NAME is not supported!"
 	return 0
 fi
